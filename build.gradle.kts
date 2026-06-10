@@ -13,43 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.dokka)
-    jacoco
-}
-
-val javaVersion = libs.versions.java.get()
-
-kotlin {
-    jvmToolchain(javaVersion.toInt())
-}
-
-dependencies {
-    testImplementation(libs.kotlin.test)
-    testImplementation(libs.junit.aggregator)
-    testRuntimeOnly(libs.junit.engine)
-    testRuntimeOnly(libs.junit.platform)
-}
-
-
-tasks.test {
-    useJUnitPlatform()
-    testLogging {
-        events.addAll(setOf(TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.PASSED))
-    }
-    finalizedBy(tasks.jacocoTestReport)
-}
-
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-}
-
-tasks.javadoc {
-    with(options as StandardJavadocDocletOptions) {
-        links("https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/")
-    }
+    alias(libs.plugins.kotlin.jvm).apply(false)
+    alias(libs.plugins.dokka).apply(false)
 }
 

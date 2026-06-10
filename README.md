@@ -1,5 +1,4 @@
-[//]: # (TODO Replace {project name} placeholder as appropriate; then, delete this line.)
-# {project name}
+# Codebreaker
 
 ## Repository
 
@@ -7,13 +6,11 @@ This repository holds Java and Kotlin code written in full or partial completion
 
 ## Project summary
 
-[//]: # (TODO Replace {project summary} placeholder as appropriate; then, delete this line.)
-{project summary}
+This project implements a multi-UI version of the Bulls & Cows code-breaking game. 
 
 ## Credits, copyrights, and license information
 
-[//]: # (TODO Replace {learners} placeholder as appropriate; then, delete this line.)
-Java and Kotlin source code written by Nicholas Bennett and {learners}.
+Java and Kotlin source code written by Nicholas Bennett, Chris Hughes, and Jazzmine Scott.
 
 Build scripts, workflow definitions, and instructional content written by Nicholas Bennett.
 

@@ -24,8 +24,7 @@ pluginManagement {
 
 val rootProjectName: String by settings
 val group: String by settings
-val packageOrg: String by settings
-val packageRepo: String by settings
+
 val catalogOrg: String by settings
 val catalogGroup: String by settings
 val catalogRepo: String by settings
@@ -49,3 +48,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = rootProjectName
+
+include(":client", ":services", ":cli")
