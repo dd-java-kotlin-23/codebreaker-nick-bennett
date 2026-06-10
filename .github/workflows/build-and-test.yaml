@@ -1,0 +1,81 @@
+#  Copyright 2026 CNM Ingenuity, Inc. ALl rights reserved.
+name: "Build current branch and run included tests (if any)"
+
+on:
+
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+    paths:
+      - '.github/**'
+      - 'gradle/**'
+      - 'src/**'
+      - '*.gradle'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: "Build and test"
+    runs-on: ubuntu-latest
+    outputs:
+      test_status: ${{ steps.build_and_test.outputs.test_status }}
+    permissions:
+      contents: read
+    timeout-minutes: 5
+
+    steps:
+
+      - name: Checkout current branch
+        uses: actions/checkout@v6
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run build and test script
+        id: build_and_test
+        run: chmod +x .github/scripts/build-and-test.sh && .github/scripts/build-and-test.sh
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: test-report
+          path: build/reports/tests/test/**
+          if-no-files-found: ignore
+
+      - name: Upload test coverage report
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: test-coverage-report
+          path: build/reports/jacoco/test/**
+          if-no-files-found: ignore
+
+  report:
+    name: "Report test outcome"
+    needs: build
+    if:  ${{ needs.build.outputs.test_status != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    steps:
+
+      - name: Display outcome
+        run: |
+          RESULT="${{ needs.build.outputs.test_status }}"
+          case "$RESULT" in
+            "pass")
+              echo "::notice::All tests passed." ;;
+            "fail")
+              echo "::error::At least one test failed."
+              exit 1 ;;
+            "compile_fail")
+              echo "::error::Test code failed to compile."
+              exit 1 ;;
+          esac
