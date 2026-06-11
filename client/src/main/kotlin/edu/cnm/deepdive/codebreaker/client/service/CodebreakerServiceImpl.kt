@@ -58,11 +58,11 @@ internal object CodebreakerServiceImpl : CodebreakerService {
 
 private class OffsetDateTimeAdapter {
     @ToJson
-    fun toJson(value: OffsetDateTime) =
+    fun toJson(value: OffsetDateTime): String =
         value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 
     @FromJson
-    fun fromJson(value: String) =
+    fun fromJson(value: String): OffsetDateTime =
         OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 }
 
@@ -98,7 +98,10 @@ private fun buildClient(properties: Properties): OkHttpClient {
         .build()
 }
 
-private fun buildApi(properties: Properties, client: OkHttpClient): CodebreakerApi =
+private fun buildApi(
+    properties: Properties,
+    @Suppress("SameParameterValue") client: OkHttpClient
+): CodebreakerApi =
     Retrofit.Builder()
         .baseUrl(properties.getProperty(BASE_URL_KEY))
         .addConverterFactory(MoshiConverterFactory.create(buildMoshi()))
