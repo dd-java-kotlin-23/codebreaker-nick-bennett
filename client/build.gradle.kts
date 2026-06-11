@@ -14,6 +14,7 @@
  *  limitations under the License.
  */
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -54,33 +55,70 @@ dependencies {
     testRuntimeOnly(libs.junit.platform)
 }
 
-openApiGenerate {
+val commonOptions = mapOf(
+    "collectionType" to properties["collectionType"] as String,
+    "dateLibrary" to properties["dateLibrary"] as String,
+    "serializationLibrary" to properties["serializationLibrary"] as String,
+    "useCoroutines" to properties["useCoroutines"] as String,
+    "enumPropertyNaming" to properties["enumPropertyNaming"] as String,
+    "hideGenerationTimestamp" to "true",
+    "openApiNullable" to "false",
+    "skipIfSpecIsUnchanged" to "true"
+)
+
+val openApiGlobalProperties = mapOf(
+    "apiDocs" to "false",
+    "apiTests" to "false",
+    "apis" to "false",
+    "modelDocs" to "false",
+    "modelTests" to "false",
+    "models" to "false",
+    "supportingFile" to "false"
+)
+
+tasks.register<GenerateTask>("openApiGenerateModels") {
+    configOptions = commonOptions
+    globalProperties = openApiGlobalProperties + mapOf(
+        "models" to "",
+        "modelDocs" to "",
+    )
+}
+
+tasks.register<GenerateTask>("openApiGenerateApis") {
+    configOptions = commonOptions + mapOf(
+        "useTags" to "true"
+    )
+    globalProperties = openApiGlobalProperties + mapOf(
+        "apis" to "",
+        "apiDocs" to "",
+        "supportingFiles" to "CollectionFormats.kt"
+    )
+}
+
+tasks.withType<GenerateTask> {
+
+    group = "openapi tools"
+
     generatorName = properties["generatorName"] as String
-    inputSpec.set("$projectDir/src/main/resources/${properties["openApiSpec"]}")
+    inputSpec.set("$projectDir/spec/${properties["openApiSpec"]}")
     outputDir.set(targetDir)
     val basePackageName: String by project
     apiPackage = "$basePackageName.web"
     modelPackage = "$basePackageName.dto"
     library = properties["httpLibrary"] as String
 
-    configOptions.set(
-        mapOf(
-            "collectionType" to properties["collectionType"] as String,
-            "dateLibrary" to properties["dateLibrary"] as String,
-            "serializationLibrary" to properties["serializationLibrary"] as String,
-            "useCoroutines" to properties["useCoroutines"] as String,
-            "enumPropertyNaming" to properties["enumPropertyNaming"] as String,
-        )
-    )
+}
 
-    generateModelTests = false
-    generateApiTests = false
-    generateModelDocumentation = false
-    generateApiDocumentation = false
+tasks.openApiGenerate {
+    enabled = false
 }
 
 tasks.compileKotlin {
-    dependsOn(tasks.openApiGenerate)
+    dependsOn(tasks.named("openApiGenerateModels"))
+    dependsOn(tasks.named("openApiGenerateApis"))
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
 }
 
 tasks.test {
