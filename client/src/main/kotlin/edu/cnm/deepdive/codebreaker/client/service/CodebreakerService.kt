@@ -1,9 +1,9 @@
 package edu.cnm.deepdive.codebreaker.client.service
 
-import edu.cnm.deepdive.codebreaker.dto.GameRequest
-import edu.cnm.deepdive.codebreaker.dto.GameResponse
-import edu.cnm.deepdive.codebreaker.dto.GuessRequest
-import edu.cnm.deepdive.codebreaker.dto.GuessResponse
+import edu.cnm.deepdive.codebreaker.client.dto.GameRequest
+import edu.cnm.deepdive.codebreaker.client.dto.GameResponse
+import edu.cnm.deepdive.codebreaker.client.dto.GuessRequest
+import edu.cnm.deepdive.codebreaker.client.dto.GuessResponse
 import java.util.concurrent.CompletableFuture
 
 interface CodebreakerService {
