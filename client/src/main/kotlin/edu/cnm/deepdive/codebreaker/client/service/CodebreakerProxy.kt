@@ -6,7 +6,7 @@ import edu.cnm.deepdive.codebreaker.client.dto.GuessRequest
 import edu.cnm.deepdive.codebreaker.client.dto.GuessResponse
 import java.util.concurrent.CompletableFuture
 
-interface CodebreakerService {
+interface CodebreakerProxy {
 
     fun startGame(game: GameRequest): CompletableFuture<GameResponse>
 
@@ -23,8 +23,8 @@ interface CodebreakerService {
     companion object {
 
         @JvmStatic
-        val instance: CodebreakerService
-            get() = CodebreakerServiceImpl
+        val instance: CodebreakerProxy
+            get() = CodebreakerProxyImpl
 
     }
 }

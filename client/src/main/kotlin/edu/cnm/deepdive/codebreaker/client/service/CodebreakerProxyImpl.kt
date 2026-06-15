@@ -24,7 +24,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-internal object CodebreakerServiceImpl : CodebreakerService {
+internal object CodebreakerProxyImpl : CodebreakerProxy {
     private val client: OkHttpClient
     private val moshi: Moshi
     private val api: CodebreakerApi
@@ -88,7 +88,7 @@ private const val BASE_URL_KEY = "baseUrl"
 
 private fun loadProperties(): Properties {
     val properties = Properties()
-    return CodebreakerServiceImpl::class.java
+    return CodebreakerProxyImpl::class.java
         .classLoader
         .getResourceAsStream(PROPERTIES_FILE)
         .use {

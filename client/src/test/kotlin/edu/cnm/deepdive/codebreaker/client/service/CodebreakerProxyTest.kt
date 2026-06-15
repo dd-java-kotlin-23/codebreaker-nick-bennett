@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-class CodebreakerServiceTest {
+class CodebreakerProxyTest {
 
-    private val service: CodebreakerService = CodebreakerService.instance
+    private val service: CodebreakerProxy = CodebreakerProxy.instance
 
     @Test
     fun startGame() {
