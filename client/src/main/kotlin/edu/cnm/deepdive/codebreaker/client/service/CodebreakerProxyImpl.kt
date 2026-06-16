@@ -59,6 +59,13 @@ internal object CodebreakerProxyImpl : CodebreakerProxy {
     ): CompletableFuture<GuessResponse> =
         scope.future { handleResponse(api.getGuess(gameId, guessId)) }
 
+    override fun shutdown() {
+        client.dispatcher.executorService.use {
+            it.shutdown()
+            client.connectionPool.evictAll()
+        }
+    }
+
     private fun <T> handleResponse(response: Response<T>): T =
         if (response.isSuccessful) {
             response.body() ?: throw RuntimeException()

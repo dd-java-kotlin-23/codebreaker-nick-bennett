@@ -18,7 +18,7 @@ interface CodebreakerProxy {
 
     fun getGuess(gameId: String, guessId: String): CompletableFuture<GuessResponse>
 
-    // TODO: Add shutdown function.
+    fun shutdown()
 
     companion object {
 
