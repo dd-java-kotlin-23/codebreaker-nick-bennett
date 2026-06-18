@@ -30,11 +30,11 @@ public class GameController {
     pool = gameProperties.getProperty(POOL_KEY);
     length = Integer.parseInt(gameProperties.getProperty(LENGTH_KEY));
     buffer = new BufferedReader(new InputStreamReader(input));
+    viewModel.observeGame(this::handleGame);
+    viewModel.observeError(this::handleError);
   }
 
   public boolean play() {
-    viewModel.observeGame(this::handleGame);
-    viewModel.observeError(this::handleError);
     viewModel.startGame(pool, length);
     run = new CompletableFuture<>();
     return run.join();
@@ -54,7 +54,6 @@ public class GameController {
       gameView.emitGameConfiguration(game);
       if (game.isSolved()) {
         gameView.emitSuccessMessage(game);
-        viewModel.shutdown();
         run.complete(true);
       } else {
         handleUserInput();
@@ -66,11 +65,10 @@ public class GameController {
     try {
       gameView.emitGuessPrompt();
       String userInput = buffer.readLine().strip().toUpperCase();
-      if (userInput.charAt(0) == 'X') { // FIXME: 6/17/26 Take this eXit character from the bundle.
-        viewModel.shutdown();
+      if (!userInput.isEmpty() && userInput.charAt(0) == 'X') { // FIXME: 6/17/26 Take this eXit character from the bundle.
         run.complete(false);
       } else {
-        viewModel.submitGuess(userInput.strip().toUpperCase());
+        viewModel.submitGuess(userInput);
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
