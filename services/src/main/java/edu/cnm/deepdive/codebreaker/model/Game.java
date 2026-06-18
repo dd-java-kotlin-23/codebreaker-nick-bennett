@@ -15,6 +15,11 @@ public record Game(String id, String pool, int length, List<Guess> guesses,
         .anyMatch((guess) -> guess.solution());
   }
 
+  /**
+   * Returns the secret code if it has already been guessed, and null otherwise.
+   *
+   * @return
+   */
   public String getCode() {
     return guesses
         .stream()
