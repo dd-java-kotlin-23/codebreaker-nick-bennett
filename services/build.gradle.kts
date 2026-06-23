@@ -55,3 +55,10 @@ tasks.javadoc {
     }
 }
 
+tasks.jar {
+    manifest {
+        attributes(
+            "Automatic-Module-Name" to "edu.cnm.deepdive.codebreaker.services"
+        )
+    }
+}

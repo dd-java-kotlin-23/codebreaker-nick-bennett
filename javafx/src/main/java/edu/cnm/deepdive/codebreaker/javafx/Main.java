@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.codebreaker.javafx;
 
 import edu.cnm.deepdive.codebreaker.javafx.controller.MainController;
+import edu.cnm.deepdive.codebreaker.javafx.viewmodel.CodebreakerViewModel;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,8 @@ public class Main extends Application {
     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(LAYOUT_NAME), bundle);
     Parent root = loader.load();
     controller = loader.getController();
+    CodebreakerViewModel viewModel = new CodebreakerViewModel();
+    controller.setViewModel(viewModel);
     Scene scene = new Scene(root);
     stage.setTitle(bundle.getString(WINDOW_TITLE_KEY));
     stage.setResizable(false); // TODO: 6/23/26 Investigate resizing.
@@ -37,7 +40,7 @@ public class Main extends Application {
   @Override
   public void stop() throws Exception {
     super.stop();
-    // TODO: 6/23/26 Invoke methods on controller (etc.) as necessary for shutting down.
+    controller.shutdown();
   }
 
 }

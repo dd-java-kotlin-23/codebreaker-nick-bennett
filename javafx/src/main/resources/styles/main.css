@@ -1,0 +1,23 @@
+VBox#main {
+  -fx-alignment: center;
+  -fx-padding: 10px;
+  -fx-min-width: 720px;
+  -fx-pref-width: 720px;
+}
+
+#window-title {
+  -fx-font-family: "Arial Black", sans-serif;
+  -fx-font-size: 36pt;
+}
+
+#game-pane {
+  -fx-min-height: 400px;
+  -fx-pref-height: 400px;
+}
+
+#button-bar {
+  -fx-min-height: 60px;
+  -fx-pref-height: 60px;
+  -fx-padding: 10px;
+  -fx-spacing: 10px;
+}

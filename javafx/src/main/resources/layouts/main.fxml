@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<VBox
+  xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml"
+  id="main"
   fx:controller="edu.cnm.deepdive.codebreaker.javafx.controller.MainController"
-  prefHeight="400.0" prefWidth="600.0">
+  stylesheets="@../styles/main.css">
 
   <Text
-    text="%correctPositionLabel"
-    AnchorPane.topAnchor="10.0"
-    AnchorPane.leftAnchor="10.0"/>
+    id="window-title"
+    text="%windowTitle"/>
 
-</AnchorPane>
+  <Pane
+    id="game-pane"/>
+
+  <HBox
+    id="button-bar">
+
+    <Button
+      fx:id="startGame"
+      text="%startGameLabel"
+      onAction="#startGame"/>
+
+  </HBox>
+
+</VBox>
