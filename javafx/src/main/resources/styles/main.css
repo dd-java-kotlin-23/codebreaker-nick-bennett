@@ -4,11 +4,13 @@ VBox#main {
   -fx-min-width: 720px;
   -fx-pref-width: 720px;
   -fx-spacing: 10px;
+  -fx-fill-width: true;
 }
 
 #window-title {
   -fx-font-family: "Arial Black", sans-serif;
   -fx-font-size: 36pt;
+  -fx-text-alignment: center;
 }
 
 #guess-controls {
@@ -30,6 +32,10 @@ VBox#main {
 #guess-list {
   -fx-min-height: 300px;
   -fx-pref-height: 300px;
+}
+
+#guess-list ListView#guesses {
+
 }
 
 #status-bar {
