@@ -3,6 +3,7 @@ VBox#main {
   -fx-padding: 10px;
   -fx-min-width: 720px;
   -fx-pref-width: 720px;
+  -fx-spacing: 10px;
 }
 
 #window-title {
@@ -10,9 +11,30 @@ VBox#main {
   -fx-font-size: 36pt;
 }
 
-#game-pane {
-  -fx-min-height: 400px;
-  -fx-pref-height: 400px;
+#guess-controls {
+  -fx-padding: 10px;
+  -fx-spacing: 10px;
+  -fx-alignment: baseline-center;
+}
+
+#guess-controls Text {
+  -fx-font-size: 18pt;
+}
+
+#guess-controls #guessInput {
+  -fx-font-size: 18pt;
+  -fx-min-width: 100px;
+  -fx-pref-width: 100px;
+}
+
+#guess-list {
+  -fx-min-height: 300px;
+  -fx-pref-height: 300px;
+}
+
+#status-bar {
+  -fx-min-height: 100px;
+  -fx-pref-height: 100px;
 }
 
 #button-bar {
@@ -20,4 +42,8 @@ VBox#main {
   -fx-pref-height: 60px;
   -fx-padding: 10px;
   -fx-spacing: 10px;
+}
+
+Button.main-button {
+  -fx-font-weight: bold;
 }
