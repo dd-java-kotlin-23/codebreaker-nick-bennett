@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.codebreaker.javafx.controller;
 
 import edu.cnm.deepdive.codebreaker.model.Guess;
+import edu.cnm.deepdive.codebreaker.service.CodebreakerService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -40,6 +41,7 @@ public class MainController {
 
   @FXML
   void initialize() throws IOException {
+    CodebreakerService service = CodebreakerService.getInstance();
     try (InputStream input = getClass().getClassLoader().getResourceAsStream(PROPS_FILE)) {
       Properties properties = new Properties();
       properties.load(input);

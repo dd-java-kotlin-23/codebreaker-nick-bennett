@@ -6,6 +6,7 @@ module edu.cnm.deepdive.codebreaker.client {
   requires retrofit2.converter.moshi;
   requires com.squareup.moshi;
   requires okhttp3;
+  requires okhttp3.logging;
 
   exports edu.cnm.deepdive.codebreaker.client.dto;
   exports edu.cnm.deepdive.codebreaker.client.service;
