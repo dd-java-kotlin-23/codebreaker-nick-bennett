@@ -3,7 +3,6 @@ package edu.cnm.deepdive.codebreaker.client.service
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import edu.cnm.deepdive.codebreaker.client.dto.ErrorResponse
 import edu.cnm.deepdive.codebreaker.client.dto.GameRequest
 import edu.cnm.deepdive.codebreaker.client.dto.GameResponse
@@ -106,7 +105,6 @@ private fun loadProperties(): Properties {
 
 private fun buildMoshi(): Moshi =
     Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
         .add(OffsetDateTimeAdapter)
         .build()
 

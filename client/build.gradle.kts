@@ -20,6 +20,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.dokka)
     jacoco
+    alias(libs.plugins.ksp)
     alias(libs.plugins.openapi)
 }
 
@@ -35,7 +36,7 @@ kotlin {
     jvmToolchain(javaVersion.toInt())
     sourceSets {
         main {
-            kotlin.srcDir("$targetDir/src/main/kotlin")
+            kotlin.srcDirs("$targetDir/openapi/src/main/kotlin", "$targetDir/ksp/main/kotlin")
         }
     }
 }
@@ -51,7 +52,7 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.moshi.core)
-    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.kotlin.codegen)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.aggregator)
@@ -60,14 +61,17 @@ dependencies {
 }
 
 val commonOptions = mapOf(
+    "moshiCodeGen" to "true",
+    "library" to properties["httpLibrary"] as String,
     "collectionType" to properties["collectionType"] as String,
     "dateLibrary" to properties["dateLibrary"] as String,
     "serializationLibrary" to properties["serializationLibrary"] as String,
     "useCoroutines" to properties["useCoroutines"] as String,
     "enumPropertyNaming" to properties["enumPropertyNaming"] as String,
-    "hideGenerationTimestamp" to "true",
-    "openApiNullable" to "false",
-    "skipIfSpecIsUnchanged" to "true"
+    "hideGenerationTimestamp" to properties["hideGenerationTimestamp"] as String,
+    "openApiNullable" to properties["openApiNullable"] as String,
+    "skipIfSpecIsUnchanged" to properties["skipIfSpecIsUnchanged"] as String,
+    "enumUnknownDefaultCase" to properties["enumUnknownDefaultCase"] as String,
 )
 
 val openApiGlobalProperties = mapOf(
@@ -105,11 +109,10 @@ tasks.withType<GenerateTask> {
 
     generatorName = properties["generatorName"] as String
     inputSpec.set("$projectDir/spec/${properties["openApiSpec"]}")
-    outputDir.set(targetDir)
+    outputDir.set("$targetDir/openapi")
     val basePackageName: String by project
     apiPackage = "$basePackageName.web"
     modelPackage = "$basePackageName.dto"
-    library = properties["httpLibrary"] as String
 
 }
 
@@ -123,6 +126,15 @@ tasks.compileKotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
+}
+
+tasks.compileJava {
+    options.compilerArgs.addAll(
+        listOf(
+            "--patch-module",
+            "edu.cnm.deepdive.codebreaker.client=${tasks.compileKotlin.get().destinationDirectory.get()}"
+        )
+    )
 }
 
 tasks.test {

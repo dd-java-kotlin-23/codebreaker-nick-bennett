@@ -54,11 +54,3 @@ tasks.javadoc {
         links("https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/")
     }
 }
-
-tasks.jar {
-    manifest {
-        attributes(
-            "Automatic-Module-Name" to "edu.cnm.deepdive.codebreaker.services"
-        )
-    }
-}
