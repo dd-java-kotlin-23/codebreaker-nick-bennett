@@ -1,5 +1,9 @@
 package edu.cnm.deepdive.codebreaker.javafx.controller;
 
+import edu.cnm.deepdive.codebreaker.model.Guess;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,30 +13,39 @@ import javafx.scene.control.TextField;
 
 public class MainController {
 
+  private static final String PROPS_FILE = "properties/code.properties";
+  private static final String POOL_KEY = "pool";
+  private static final String LENGTH_KEY = "length";
+
   @FXML
   private Button settings;
-
   @FXML
-  private ListView guesses; // FIXME: 6/23/26 Add the type parameter for Guess.
-
+  private ListView<Guess> guesses;
   @FXML
   private Button submitGuess;
-
   @FXML
   private TextField guessInput;
-
   @FXML
   private Button startGame;
 
   @FXML
   private ResourceBundle resources;
 
+  private String pool;
+  private int length;
+
   public void shutdown() {
 //    viewModel.shutdown();
   }
 
   @FXML
-  void initialize() {
+  void initialize() throws IOException {
+    try (InputStream input = getClass().getClassLoader().getResourceAsStream(PROPS_FILE)) {
+      Properties properties = new Properties();
+      properties.load(input);
+      pool = properties.getProperty(POOL_KEY);
+      length = Integer.parseInt(properties.getProperty(LENGTH_KEY));
+    }
     submitGuess.setDisable(true);
     // TODO Pass a CellFactory to the guesses listview.
     // TODO Register an observer (consumer) of Game with the viewmodel:

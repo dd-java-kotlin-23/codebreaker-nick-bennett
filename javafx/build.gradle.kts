@@ -71,4 +71,3 @@ tasks.javadoc {
         links("https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/")
     }
 }
-
