@@ -8,5 +8,6 @@ module edu.cnm.deepdive.codebreaker.javafx {
 
   opens edu.cnm.deepdive.codebreaker.javafx to javafx.fxml;
   opens edu.cnm.deepdive.codebreaker.javafx.controller to javafx.fxml;
+  opens edu.cnm.deepdive.codebreaker.javafx.adapter to javafx.fxml;
 
 }

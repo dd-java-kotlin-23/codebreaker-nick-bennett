@@ -53,3 +53,19 @@ VBox#main {
 Button.main-button {
   -fx-font-weight: bold;
 }
+
+HBox#guess-row {
+  -fx-padding: 10px;
+  -fx-spacing: 10px;
+}
+
+HBox#guess-row Label {
+  -fx-min-width: 50%;
+  -fx-pref-width: 50%;
+}
+
+#guesses .list-cell {
+  -fx-padding: 0;
+  -fx-end-margin: 0;
+  -fx-start-margin: 0;
+}
