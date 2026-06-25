@@ -52,7 +52,7 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.moshi.core)
-    implementation(libs.moshi.kotlin.codegen)
+    ksp(libs.moshi.kotlin.codegen)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.aggregator)
@@ -126,6 +126,11 @@ tasks.compileKotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
+}
+
+tasks.matching { it.name == "kspKotlin" }.configureEach {
+    dependsOn(tasks.named("openApiGenerateModels"))
+    dependsOn(tasks.named("openApiGenerateApis"))
 }
 
 tasks.compileJava {

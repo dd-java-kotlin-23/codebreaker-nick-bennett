@@ -10,7 +10,7 @@
 <VBox
   xmlns="http://javafx.com/javafx"
   xmlns:fx="http://javafx.com/fxml"
-  id="main"
+  fx:id="main"
   fx:controller="edu.cnm.deepdive.codebreaker.javafx.controller.MainController"
   stylesheets="@../styles/main.css">
 
