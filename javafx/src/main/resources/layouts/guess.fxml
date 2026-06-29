@@ -9,6 +9,12 @@
   id="guess-row">
 
   <Label
+    fx:id="guessNumber"/>
+
+  <Label
+    fx:id="guessText"/>
+
+  <Label
     fx:id="exactMatches"/>
 
   <Label

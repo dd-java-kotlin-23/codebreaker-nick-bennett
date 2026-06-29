@@ -42,7 +42,11 @@ javafx {
 }
 
 dependencies {
+    implementation(project(":client"))
     implementation(project(":services"))
+    implementation("jakarta.inject:jakarta.inject-api:2.0.1")
+    implementation(libs.dagger.core)
+    annotationProcessor(libs.dagger.compiler)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.aggregator)

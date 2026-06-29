@@ -27,6 +27,10 @@ public class GuessAdapter implements Callback<ListView<Guess>, ListCell<Guess>> 
     private final Parent root;
 
     @FXML
+    private Label guessNumber;
+    @FXML
+    private Label guessText;
+    @FXML
     private Label exactMatches;
     @FXML
     private Label nearMatches;
@@ -48,8 +52,11 @@ public class GuessAdapter implements Callback<ListView<Guess>, ListCell<Guess>> 
         setGraphic(null);
       } else {
         int position = listView.getItems().indexOf(item);
+        guessNumber.setText(String.valueOf(position + 1));
+        guessText.setText(item.text());
         exactMatches.setText(String.valueOf(item.exactMatches()));
         nearMatches.setText(String.valueOf(item.nearMatches()));
+        // TODO: 6/29/26 Set additional style properties (background color, etc.)
         setGraphic(root);
       }
     }

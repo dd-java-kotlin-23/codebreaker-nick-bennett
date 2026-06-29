@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.codebreaker.javafx;
 
+import edu.cnm.deepdive.codebreaker.javafx.controller.MainController;
 import edu.cnm.deepdive.codebreaker.javafx.controller.Stoppable;
+import edu.cnm.deepdive.codebreaker.javafx.di.DaggerJavaFxComponent;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,13 @@ public class Main extends Application {
   public void start(Stage stage) throws Exception {
     ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME);
     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(LAYOUT_NAME), bundle);
+    loader.setControllerFactory((type) -> {
+      if (type == MainController.class) {
+        return DaggerJavaFxComponent.create().mainController();
+      } else {
+        throw new IllegalArgumentException("Unsupported controller class: %s".formatted(type));
+      }
+    });
     Parent root = loader.load();
     controller = loader.getController();
     Scene scene = new Scene(root);

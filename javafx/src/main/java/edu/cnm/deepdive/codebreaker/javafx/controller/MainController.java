@@ -4,11 +4,13 @@ import edu.cnm.deepdive.codebreaker.javafx.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.javafx.viewmodel.CodebreakerViewModel;
 import edu.cnm.deepdive.codebreaker.model.Game;
 import edu.cnm.deepdive.codebreaker.model.Guess;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +24,8 @@ public class MainController implements Stoppable {
   private static final String PROPS_FILE = "properties/code.properties";
   private static final String POOL_KEY = "pool";
   private static final String LENGTH_KEY = "length";
+
+  private final CodebreakerViewModel viewModel;
 
   @FXML
   private VBox main;
@@ -41,7 +45,11 @@ public class MainController implements Stoppable {
 
   private String pool;
   private int length;
-  private CodebreakerViewModel viewModel;
+
+  @Inject
+  public MainController(CodebreakerViewModel viewModel) {
+    this.viewModel = viewModel;
+  }
 
   @Override
   public void shutdown() {
@@ -72,7 +80,6 @@ public class MainController implements Stoppable {
   }
 
   private void setupViewModel() {
-    viewModel = new CodebreakerViewModel();
     viewModel.observeGame(this::handleGame);
     viewModel.observeError((error) -> {
       // TODO: 6/25/26 Update UI with information from error.
@@ -84,6 +91,7 @@ public class MainController implements Stoppable {
     guesses.setCellFactory(new GuessAdapter());
     guesses.getItems().clear();
     guesses.getItems().addAll(game.guesses());
+    Platform.runLater(() -> guesses.scrollTo(game.guesses().size() - 1));
     updateGuessControls(game);
   }
 
@@ -106,6 +114,7 @@ public class MainController implements Stoppable {
 
   private void updateGuessControls(Game game) {
     boolean enabled = (game != null && !game.isSolved());
+    guessInput.requestFocus();
     guessInput.setDisable(!enabled);
     submitGuess.setDisable(!enabled);
   }
