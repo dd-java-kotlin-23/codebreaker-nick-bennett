@@ -1,14 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
-//    alias(libs.plugins.hilt)
-//    alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.navigation.safeargs)
 }
 
 android {
 
     namespace = project.property("basePackageName") as String
     compileSdk = (project.property("targetSdk") as String).toInt()
-    
+
     defaultConfig {
         
         applicationId = project.property("basePackageName") as String
@@ -24,10 +24,33 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            // TODO: Add ProGuard 
+            // TODO: Add ProGuard
         }
     }
-    
+
+    buildFeatures {
+        resValues = true
+        viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.get()}")
+        targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.get()}")
+    }
+
+//    kotlin {
+//        compilerOptions {
+//            jvmTarget = JvmTarget.valueOf("JVM_${libs.versions.java.get()}")
+//        }
+//    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/NOTICE.md"
+            excludes += "/META-INF/LICENSE.md"
+        }
+    }
+
 }
 
 dependencies {
@@ -37,11 +60,27 @@ dependencies {
     implementation(libs.app.compat)
     implementation(libs.activity)
     implementation(libs.fragment)
+
     implementation(libs.constraint.layout)
     implementation(libs.recycler.view)
+
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
 
+    implementation(libs.preference)
+
+    implementation(libs.material)
+
+    implementation(libs.kotlin)
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+
+    implementation(libs.hilt.android.core)
+    annotationProcessor(libs.hilt.compiler)
+
+    // TODO: Add testing dependencies.
 }
