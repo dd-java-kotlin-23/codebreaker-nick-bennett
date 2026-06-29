@@ -15,6 +15,12 @@
  */
 
 plugins {
+    alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.hilt).apply(false)
+    alias(libs.plugins.ksp).apply(false)
+    alias(libs.plugins.navigation.safeargs).apply(false)
+    // TODO: Consider including the Kotlin version of the safeargs plugin.
+
     alias(libs.plugins.kotlin.jvm).apply(false)
     alias(libs.plugins.dokka).apply(false)
 }
