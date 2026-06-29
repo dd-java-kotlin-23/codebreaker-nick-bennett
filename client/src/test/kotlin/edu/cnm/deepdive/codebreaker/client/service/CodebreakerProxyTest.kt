@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.codebreaker.client.service
 
+import edu.cnm.deepdive.codebreaker.client.di.ClientModule
 import edu.cnm.deepdive.codebreaker.client.dto.GameRequest
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 class CodebreakerProxyTest {
 
-    private val service: CodebreakerProxy = CodebreakerProxy.instance
+    private val service: CodebreakerProxy = ClientModule.provideCodebreakerProxy()
 
     @Test
     fun startGame() {
@@ -41,7 +42,7 @@ class CodebreakerProxyTest {
     }
 
     @Test
-    fun getInstance() {
+    fun moduleProvidesProxy() {
     }
 
 }

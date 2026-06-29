@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<HBox
+  xmlns="http://javafx.com/javafx"
+  xmlns:fx="http://javafx.com/fxml"
+  stylesheets="@../styles/main.css"
+  id="guess-row">
+
+  <Label
+    fx:id="guessNumber"/>
+
+  <Label
+    fx:id="guessText"/>
+
+  <Label
+    fx:id="exactMatches"/>
+
+  <Label
+    fx:id="nearMatches"/>
+
+</HBox>

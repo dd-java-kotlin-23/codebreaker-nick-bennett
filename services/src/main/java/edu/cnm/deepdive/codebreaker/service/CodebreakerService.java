@@ -17,14 +17,4 @@ public interface CodebreakerService {
 
   void shutdown();
 
-  static CodebreakerService getInstance() {
-    return Holder.INSTANCE;
-  }
-
-  class Holder {
-
-    private static final CodebreakerService INSTANCE = new CodebreakerServiceImpl();
-
-  }
-
 }

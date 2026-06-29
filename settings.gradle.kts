@@ -49,4 +49,4 @@ dependencyResolutionManagement {
 
 rootProject.name = rootProjectName
 
-include(":client", ":services", ":cli")
+include(":client", ":services", ":cli", ":javafx")
