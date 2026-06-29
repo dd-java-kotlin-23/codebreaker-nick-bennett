@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 
-public class MainController {
+public class MainController implements Stoppable {
 
   private static final String PROPS_FILE = "properties/code.properties";
   private static final String POOL_KEY = "pool";
@@ -43,8 +43,9 @@ public class MainController {
   private int length;
   private CodebreakerViewModel viewModel;
 
+  @Override
   public void shutdown() {
-//    viewModel.shutdown();
+    viewModel.shutdown();
   }
 
   @FXML

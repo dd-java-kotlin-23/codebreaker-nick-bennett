@@ -1,6 +1,6 @@
 package edu.cnm.deepdive.codebreaker.javafx;
 
-import edu.cnm.deepdive.codebreaker.javafx.controller.MainController;
+import edu.cnm.deepdive.codebreaker.javafx.controller.Stoppable;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ public class Main extends Application {
   private static final String LAYOUT_NAME = "layouts/main.fxml";
   private static final String WINDOW_TITLE_KEY = "windowTitle";
 
-  private MainController controller;
+  private Stoppable controller;
 
   static void main(String[] args) {
     launch(args);
@@ -26,8 +26,6 @@ public class Main extends Application {
     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(LAYOUT_NAME), bundle);
     Parent root = loader.load();
     controller = loader.getController();
-//    CodebreakerViewModel viewModel = new CodebreakerViewModel();
-//    controller.setViewModel(viewModel);
     Scene scene = new Scene(root);
     stage.setTitle(bundle.getString(WINDOW_TITLE_KEY));
     stage.setResizable(false); // TODO: 6/23/26 Investigate resizing.
