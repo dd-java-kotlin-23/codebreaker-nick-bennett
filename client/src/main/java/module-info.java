@@ -1,5 +1,8 @@
 module edu.cnm.deepdive.codebreaker.client {
 
+  requires dagger;
+  requires jakarta.inject;
+  requires java.compiler;
   requires kotlin.stdlib;
   requires kotlinx.coroutines.core;
   requires kotlinx.coroutines.jdk8;
@@ -10,6 +13,7 @@ module edu.cnm.deepdive.codebreaker.client {
   requires okhttp3.logging;
 
   exports edu.cnm.deepdive.codebreaker.client.dto;
+  exports edu.cnm.deepdive.codebreaker.client.di;
   exports edu.cnm.deepdive.codebreaker.client.service;
 
   opens edu.cnm.deepdive.codebreaker.client.dto to com.squareup.moshi;

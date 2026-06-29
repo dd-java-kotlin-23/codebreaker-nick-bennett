@@ -29,6 +29,9 @@ kotlin {
 
 dependencies {
     implementation(project(":client"))
+    implementation(libs.dagger.core)
+    implementation("jakarta.inject:jakarta.inject-api:2.0.1")
+    annotationProcessor(libs.dagger.compiler)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.aggregator)

@@ -43,6 +43,9 @@ kotlin {
 
 dependencies {
 
+    implementation(libs.dagger.core)
+    implementation("jakarta.inject:jakarta.inject-api:2.0.1")
+
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.jdk8)
 
@@ -53,6 +56,7 @@ dependencies {
 
     implementation(libs.moshi.core)
     ksp(libs.moshi.kotlin.codegen)
+    ksp(libs.dagger.compiler)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.aggregator)

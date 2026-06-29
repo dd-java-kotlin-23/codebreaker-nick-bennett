@@ -2,6 +2,7 @@ package edu.cnm.deepdive.codebreaker.cli.viewmodel;
 
 import edu.cnm.deepdive.codebreaker.model.Game;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerService;
+import jakarta.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -16,8 +17,9 @@ public class CodebreakerViewModel {
   private Game game;
   private Throwable error;
 
-  public CodebreakerViewModel() {
-    service = CodebreakerService.getInstance();
+  @Inject
+  public CodebreakerViewModel(CodebreakerService service) {
+    this.service = service;
     gameObservers = new LinkedList<>();
     errorObservers = new LinkedList<>();
   }

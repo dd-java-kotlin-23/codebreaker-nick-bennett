@@ -30,11 +30,4 @@ interface CodebreakerProxy {
 
     fun shutdown()
 
-    companion object {
-
-        @JvmStatic
-        val instance: CodebreakerProxy
-            get() = CodebreakerProxyImpl
-
-    }
 }

@@ -20,10 +20,10 @@ class CodebreakerServiceImpl implements CodebreakerService {
   private static final int MIN_LENGTH = 1;
   private static final int MAX_LENGTH = 20;
 
-  private final CodebreakerProxy proxy; // FIXME: 6/15/26 Use dependency injection.
+  private final CodebreakerProxy proxy;
 
-  CodebreakerServiceImpl() {
-    proxy = CodebreakerProxy.getInstance();
+  CodebreakerServiceImpl(CodebreakerProxy proxy) {
+    this.proxy = proxy;
   }
 
   @Override
