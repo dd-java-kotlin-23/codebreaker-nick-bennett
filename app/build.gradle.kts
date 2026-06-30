@@ -81,6 +81,7 @@ dependencies {
 
     implementation(libs.hilt.android.core)
     annotationProcessor(libs.hilt.compiler)
+    implementation("jakarta.inject:jakarta.inject-api:2.0.1")
 
     // TODO: Add testing dependencies.
 }
