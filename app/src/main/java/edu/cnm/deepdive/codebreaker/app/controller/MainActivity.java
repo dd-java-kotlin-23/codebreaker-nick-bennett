@@ -10,9 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.snackbar.Snackbar;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.codebreaker.app.R;
 import edu.cnm.deepdive.codebreaker.app.databinding.ActivityMainBinding;
+import edu.cnm.deepdive.codebreaker.app.viewmodel.GameViewModel;
 import edu.cnm.deepdive.codebreaker.model.Game;
 import java.util.regex.Pattern;
 
@@ -20,29 +23,86 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
 
   private ActivityMainBinding binding;
+  private GameViewModel viewModel;
   private boolean guessReady;
   private boolean solved;
+  private Game game;
   private TextWatcher guessReadyWatcher;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setupLayout();
+    setupViewModel();
+    attachButtonListeners();
+    updateGuessControls();
+  }
+
+  private void setupLayout() {
     EdgeToEdge.enable(this);
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
-    ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+    ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
       Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
       return insets;
     });
   }
 
-  private void updateGameDisplay(Game game) {
+  private void setupViewModel() {
+    viewModel = new ViewModelProvider(this).get(GameViewModel.class);
+    viewModel
+        .getGame()
+        .observe(this, this::handleGame);
+    viewModel
+        .getSolved()
+        .observe(this, this::handleSolved);
+    viewModel
+        .getError()
+        .observe(this, this::handleError);
+  }
+
+  private void attachButtonListeners() {
+    binding.startGame.setOnClickListener((_) -> viewModel.startGame());
+    //noinspection DataFlowIssue
+    binding.submitGuess.setOnClickListener((_) ->
+        viewModel.submitGuess(binding.guessInput.getText().toString()));
+  }
+
+  private void handleGame(Game game) {
+    this.game = game;
+    updateGameDisplay();
+    setupGuessListeners();
+    updateGuessControls();
+  }
+
+  private void handleSolved(boolean solved) {
+    this.solved = solved;
+    updateGuessControls();
+    if (solved) {
+      Snackbar.make(binding.getRoot(),
+              getString(R.string.solved_message_format, game.getCode(), game.guesses().size()),
+              Snackbar.LENGTH_LONG)
+          .show();
+    }
+  }
+
+  private void handleError(Throwable error) {
+    if (error != null) {
+      Snackbar.make(binding.getRoot(),
+              getString(R.string.snackbar_error_format, error),
+              Snackbar.LENGTH_LONG)
+          .show();
+    }
+  }
+
+  private void updateGameDisplay() {
     // TODO: 6/30/26 Update list views, status indicators, etc.
     binding.gameState.setText(game.toString());
   }
 
-  private void setupGuessListeners(Game game) {
+  private void setupGuessListeners() {
+    //noinspection DataFlowIssue
     binding
         .guessInput
         .getText()
@@ -61,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void updateGuessControls() {
-    if (solved) {
+    if (solved || game == null) {
       binding.guessInput.setEnabled(false);
       binding.submitGuess.setEnabled(false);
     } else {

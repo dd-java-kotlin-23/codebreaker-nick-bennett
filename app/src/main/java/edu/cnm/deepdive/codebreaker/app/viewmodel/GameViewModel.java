@@ -22,7 +22,7 @@ public class GameViewModel extends ViewModel {
   private final MutableLiveData<Throwable> error;
 
   @Inject
-  public GameViewModel(CodebreakerService service) {
+  GameViewModel(CodebreakerService service) {
     this.service = service;
     game = new MutableLiveData<>();
     solved = Transformations.map(game, Game::isSolved);

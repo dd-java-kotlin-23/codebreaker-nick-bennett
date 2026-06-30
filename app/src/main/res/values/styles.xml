@@ -5,7 +5,7 @@
     <!--  TODO Add theme customization.  -->
   </style>
 
-  <style name="GuessState" parent="TextAppearance.Material3.BodyMedium">
+  <style name="GuessState" parent="TextAppearance.Material3.BodySmall">
     <item name="android:textAlignment">center</item>
   </style>
 

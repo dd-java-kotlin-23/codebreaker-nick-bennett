@@ -3,4 +3,5 @@
   <string name="guess_input_hint">Guess</string>
   <string name="submit_guess_label">Submit Guess</string>
   <string name="snackbar_error_format">Error: %s</string>
+  <string name="solved_message_format">You guessed the code (%1s) in %2d guesses!</string>
 </resources>

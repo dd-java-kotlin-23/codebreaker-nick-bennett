@@ -2,5 +2,5 @@
 <resources>
   <dimen name="half_dynamic_spacing">8dp</dimen>
   <dimen name="guess_input_width">150dp</dimen>
-  <dimen name="game_state_height">200dp</dimen>
+  <dimen name="game_state_height">300dp</dimen>
 </resources>

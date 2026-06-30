@@ -21,11 +21,15 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintVertical_chainStyle="spread"/>
 
-  <TextView
+  <EditText
     android:id="@+id/game_state"
     android:layout_width="0dp"
     android:layout_height="@dimen/game_state_height"
     android:layout_margin="@dimen/half_dynamic_spacing"
+    android:inputType="none"
+    android:editable="false"
+    android:focusable="false"
+    style="@style/GuessState"
     app:layout_constraintTop_toBottomOf="@id/start_game"
     app:layout_constraintBottom_toTopOf="@id/guess_input_layout"
     app:layout_constraintStart_toStartOf="parent"
