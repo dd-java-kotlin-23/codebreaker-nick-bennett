@@ -5,7 +5,10 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -38,6 +41,23 @@ public class MainActivity extends AppCompatActivity {
     updateGuessControls();
   }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    super.onCreateOptionsMenu(menu);
+    getMenuInflater().inflate(R.menu.game_options, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    if (item.getItemId() == R.id.new_game) {
+      binding.guessInput.setText("");
+      viewModel.startGame();
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   private void setupLayout() {
     EdgeToEdge.enable(this);
     binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -63,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void attachButtonListeners() {
-    binding.startGame.setOnClickListener((_) -> viewModel.startGame());
     //noinspection DataFlowIssue
     binding.submitGuess.setOnClickListener((_) ->
         viewModel.submitGuess(binding.guessInput.getText().toString()));
@@ -98,7 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
   private void updateGameDisplay() {
     // TODO: 6/30/26 Update list views, status indicators, etc.
+    binding.pool.setText(getString(R.string.pool_format, game.pool()));
+    binding.length.setText(getString(R.string.length_format, game.length()));
     binding.gameState.setText(game.toString());
+    binding.gameState.setSelection(binding.gameState.getText().length());
   }
 
   private void setupGuessListeners() {

@@ -5,8 +5,11 @@
     <!--  TODO Add theme customization.  -->
   </style>
 
-  <style name="GuessState" parent="TextAppearance.Material3.BodySmall">
+  <style name="GameState" parent="TextAppearance.Material3.BodySmall">
     <item name="android:gravity">top</item>
+    <item name="android:background">@null</item>
   </style>
+
+  <style name="GameParams" parent="TextAppearance.Material3.TitleLarge"/>
 
 </resources>

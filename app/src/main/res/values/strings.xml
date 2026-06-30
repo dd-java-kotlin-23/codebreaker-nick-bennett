@@ -3,6 +3,8 @@
   <string name="guess_input_hint">Guess</string>
   <string name="submit_guess_label">Submit Guess</string>
   <string name="snackbar_error_format">Error: %s</string>
-  <string name="solved_message_format">You guessed the code (%1s) in %2d guesses!</string>
+  <string name="solved_message_format">You guessed the code (%1$s) in %2$d guesses!</string>
   <string name="new_game_title">Start new game</string>
+  <string name="pool_format">Pool: %s</string>
+  <string name="length_format">Length: %d</string>
 </resources>
