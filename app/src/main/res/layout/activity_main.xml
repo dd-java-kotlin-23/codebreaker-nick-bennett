@@ -6,6 +6,7 @@
   android:id="@+id/main"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="@dimen/half_dynamic_spacing"
   tools:context=".controller.MainActivity">
 
   <Button
@@ -17,18 +18,51 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toTopOf="@id/game_state"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintVertical_chainStyle="spread"/>
 
   <TextView
     android:id="@+id/game_state"
     android:layout_width="0dp"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/game_state_height"
     android:layout_margin="@dimen/half_dynamic_spacing"
     app:layout_constraintTop_toBottomOf="@id/start_game"
-    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/guess_input_layout"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     tools:text="Game[...]"/>
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/guess_input_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    app:hintEnabled="true"
+    app:hintAnimationEnabled="true"
+    app:layout_constraintTop_toBottomOf="@id/game_state"
+    app:layout_constraintBottom_toTopOf="@id/submit_guess"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/guess_input"
+      android:layout_width="@dimen/guess_input_width"
+      android:layout_height="wrap_content"
+      android:inputType="text"
+      android:hint="@string/guess_input_hint"/>
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <Button
+    android:id="@+id/submit_guess"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:text="@string/submit_guess_label"
+    app:layout_constraintTop_toBottomOf="@id/guess_input_layout"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

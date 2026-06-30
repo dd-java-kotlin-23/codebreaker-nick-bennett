@@ -80,6 +80,7 @@ dependencies {
     annotationProcessor(libs.room.compiler)
 
     implementation(libs.hilt.android.core)
+    implementation(libs.dagger.core)
     annotationProcessor(libs.hilt.compiler)
     implementation("jakarta.inject:jakarta.inject-api:2.0.1")
 
