@@ -9,33 +9,6 @@
   android:padding="@dimen/half_dynamic_spacing"
   tools:context=".controller.MainActivity">
 
-  <Button
-    android:id="@+id/start_game"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_dynamic_spacing"
-    android:text="@string/start_game_label"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/game_state"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintVertical_chainStyle="spread"/>
-
-  <EditText
-    android:id="@+id/game_state"
-    android:layout_width="0dp"
-    android:layout_height="@dimen/game_state_height"
-    android:layout_margin="@dimen/half_dynamic_spacing"
-    android:inputType="none"
-    android:editable="false"
-    android:focusable="false"
-    style="@style/GuessState"
-    app:layout_constraintTop_toBottomOf="@id/start_game"
-    app:layout_constraintBottom_toTopOf="@id/guess_input_layout"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:text="Game[...]"/>
-
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/guess_input_layout"
     android:layout_width="wrap_content"
@@ -43,10 +16,9 @@
     android:layout_margin="@dimen/half_dynamic_spacing"
     app:hintEnabled="true"
     app:hintAnimationEnabled="true"
-    app:layout_constraintTop_toBottomOf="@id/game_state"
-    app:layout_constraintBottom_toTopOf="@id/submit_guess"
+    app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent">
+    app:layout_constraintEnd_toStartOf="@id/submit_guess">
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/guess_input"
@@ -63,10 +35,38 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_dynamic_spacing"
     android:text="@string/submit_guess_label"
+    app:layout_constraintBaseline_toBaselineOf="@id/guess_input_layout"
+    app:layout_constraintStart_toEndOf="@id/guess_input_layout"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+  <Button
+    android:id="@+id/start_game"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:text="@string/start_game_label"
     app:layout_constraintTop_toBottomOf="@id/guess_input_layout"
+    app:layout_constraintBottom_toTopOf="@id/game_state"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintVertical_chainStyle="spread"/>
+
+  <EditText
+    android:id="@+id/game_state"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/game_state_height"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:inputType="none"
+    android:editable="false"
+    android:focusable="false"
+    style="@style/GuessState"
+    app:layout_constraintTop_toBottomOf="@id/start_game"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:text="Game[...]"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
