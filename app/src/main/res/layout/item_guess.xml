@@ -6,8 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:padding="@dimen/half_dynamic_spacing"
-  android:gravity="center_vertical"
-  android:theme="@style/GuessItemColumn">
+  android:gravity="center_vertical">
 
   <TextView
     android:id="@+id/guess_number"
@@ -23,7 +22,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
     android:layout_weight="4"
-    style="@style/GuessItemColumn.StartAligned"
     tools:text="ABCD"/>
 
   <TextView

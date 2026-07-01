@@ -12,7 +12,8 @@
 
   <style name="GameParams" parent="TextAppearance.Material3.TitleLarge"/>
 
-  <style name="GuessItemColumn" parent="TextAppearance.Material3.BodyMedium">
+  <style name="GuessItemColumn" parent="Widget.MaterialComponents.TextView">
+    <item name="android:textAppearance">@style/TextAppearance.Material3.BodyMedium</item>
     <item name="android:textAlignment">center</item>
   </style>
 
