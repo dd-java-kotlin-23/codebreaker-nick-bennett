@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.codebreaker.app.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -52,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    boolean handled = false;
     if (item.getItemId() == R.id.new_game) {
       binding.guessInput.setText("");
       viewModel.startGame();
-      return true;
+      handled = true;
+    } else if (item.getItemId() == R.id.settings) {
+      Intent intent = new Intent(this, SettingsActivity.class);
+      startActivity(intent);
     }
     return super.onOptionsItemSelected(item);
   }
@@ -126,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
     binding.pool.setText(getString(R.string.pool_format, game.pool()));
     binding.length.setText(getString(R.string.length_format, game.length()));
     adapter.addAll(game.guesses().subList(adapter.getCount(), game.guesses().size()));
-//    binding.guessList.post(() ->
-//        binding.guessList.smoothScrollToPosition(game.guesses().size() - 1));
   }
 
   private void setupGuessListeners() {

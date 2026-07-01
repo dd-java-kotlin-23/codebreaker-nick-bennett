@@ -19,6 +19,11 @@
       </intent-filter>
     </activity>
 
+    <activity
+      android:exported="false"
+      android:name=".controller.SettingsActivity"
+      android:parentActivityName=".controller.MainActivity"/>
+
   </application>
 
   <uses-permission android:name="android.permission.INTERNET"/>

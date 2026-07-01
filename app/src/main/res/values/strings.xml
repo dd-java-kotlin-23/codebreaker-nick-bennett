@@ -7,4 +7,13 @@
   <string name="new_game_title">Start new game</string>
   <string name="pool_format">Pool: %s</string>
   <string name="length_format">Length: %d</string>
+  <string name="code_length_key">code_length</string>
+  <string name="code_length_title">Code length</string>
+  <string name="pool_size_key">pool_size</string>
+  <string name="pool_size_title">Pool size</string>
+  <string name="show_text_key">show_text</string>
+  <string name="show_text_title">Show guess text</string>
+  <string name="show_text_summary_off">While guessing, the text of previous guesses will not be displayed.</string>
+  <string name="show_text_summary_on">While guessing, the text of previous guesses will be displayed.</string>
+  <string name="settings_title">Settings</string>
 </resources>

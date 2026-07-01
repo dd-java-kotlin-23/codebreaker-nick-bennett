@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <PreferenceCategory
+    android:title="Code difficulty"
+    android:iconSpaceReserved="true">
+
+    <SeekBarPreference
+      android:key="@string/code_length_key"
+      android:title="@string/code_length_title"
+      app:min="@integer/code_length_min"
+      android:max="@integer/code_length_max"
+      android:defaultValue="@integer/code_length_default"
+      app:showSeekBarValue="true"/>
+
+    <SeekBarPreference
+      android:key="@string/pool_size_key"
+      android:title="@string/pool_size_title"
+      app:min="@integer/pool_size_min"
+      android:max="@integer/pool_size_max"
+      android:defaultValue="@integer/pool_size_default"
+      app:showSeekBarValue="true"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="Game play">
+
+    <SwitchPreference
+      android:key="@string/show_text_key"
+      android:title="@string/show_text_title"
+      android:summaryOff="@string/show_text_summary_off"
+      android:summaryOn="@string/show_text_summary_on"
+      android:defaultValue="@bool/show_text_default"/>
+
+  </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="code_length_min">2</integer>
+  <integer name="code_length_max">10</integer>
+  <integer name="code_length_default">3</integer>
+  <integer name="pool_size_min">2</integer>
+  <integer name="pool_size_max">10</integer>
+  <integer name="pool_size_default">6</integer>
+</resources>
