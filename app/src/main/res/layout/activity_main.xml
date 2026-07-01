@@ -6,14 +6,13 @@
   android:id="@+id/main"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="@dimen/half_dynamic_spacing"
   tools:context=".controller.MainActivity">
 
   <TextView
     android:id="@+id/pool"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:layout_margin="@dimen/full_dynamic_spacing"
     style="@style/GameParams"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +22,7 @@
     android:id="@+id/length"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:layout_margin="@dimen/full_dynamic_spacing"
     style="@style/GameParams"
     app:layout_constraintBaseline_toBaselineOf="@id/pool"
     app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +32,7 @@
     android:id="@+id/guess_input_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:layout_margin="@dimen/full_dynamic_spacing"
     app:hintEnabled="true"
     app:hintAnimationEnabled="true"
     app:layout_constraintTop_toBottomOf="@id/pool"
@@ -53,25 +52,21 @@
     android:id="@+id/submit_guess"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:layout_margin="@dimen/full_dynamic_spacing"
     android:text="@string/submit_guess_label"
     app:layout_constraintBaseline_toBaselineOf="@id/guess_input_layout"
     app:layout_constraintStart_toEndOf="@id/guess_input_layout"
     app:layout_constraintEnd_toEndOf="parent"/>
 
-  <EditText
-    android:id="@+id/game_state"
+  <ListView
+    android:id="@+id/guess_list"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_margin="@dimen/half_dynamic_spacing"
-    android:inputType="none"
-    android:editable="false"
-    android:textIsSelectable="true"
-    style="@style/GameState"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/full_dynamic_spacing"
     app:layout_constraintTop_toBottomOf="@id/guess_input_layout"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:text="Game[...]"/>
+    app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

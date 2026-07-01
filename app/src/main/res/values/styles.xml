@@ -12,4 +12,12 @@
 
   <style name="GameParams" parent="TextAppearance.Material3.TitleLarge"/>
 
+  <style name="GuessItemColumn" parent="TextAppearance.Material3.BodyMedium">
+    <item name="android:textAlignment">center</item>
+  </style>
+
+  <style name="GuessItemColumn.StartAligned">
+    <item name="android:textAlignment">textStart</item>
+  </style>
+
 </resources>
