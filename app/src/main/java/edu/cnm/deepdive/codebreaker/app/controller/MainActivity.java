@@ -67,17 +67,6 @@ public class MainActivity extends AppCompatActivity {
     return handled;
   }
 
-  private void showSettings() {
-    Intent intent = new Intent(this, SettingsActivity.class);
-    startActivity(intent);
-  }
-
-  private void startGame() {
-    disableGameControls();
-    binding.guessInput.setText("");
-    viewModel.startGame();
-  }
-
   private void setupLayout() {
     EdgeToEdge.enable(this);
     binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -87,6 +76,17 @@ public class MainActivity extends AppCompatActivity {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
       return insets;
     });
+  }
+
+  private void startGame() {
+    disableGameControls();
+    binding.guessInput.setText("");
+    viewModel.startGame();
+  }
+
+  private void showSettings() {
+    Intent intent = new Intent(this, SettingsActivity.class);
+    startActivity(intent);
   }
 
   private void setupViewModel() {
@@ -110,10 +110,14 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  private void disableGameControls() {
-    binding.submitGuess.setEnabled(false);
-    binding.guessInput.setEnabled(false);
-    binding.waitingIndicator.setVisibility(View.VISIBLE);
+  private void updateGuessControls() {
+    if (solved || game == null) {
+      binding.guessInput.setEnabled(false);
+      binding.submitGuess.setEnabled(false);
+    } else {
+      binding.guessInput.setEnabled(true);
+      binding.submitGuess.setEnabled(guessReady);
+    }
   }
 
   private void handleGame(Game game) {
@@ -147,8 +151,13 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  private void disableGameControls() {
+    binding.submitGuess.setEnabled(false);
+    binding.guessInput.setEnabled(false);
+    binding.waitingIndicator.setVisibility(View.VISIBLE);
+  }
+
   private void updateGameDisplay() {
-    // TODO: 6/30/26 Update list views, status indicators, etc.
     binding.pool.setText(getString(R.string.pool_format, game.pool()));
     binding.length.setText(getString(R.string.length_format, game.length()));
     adapter.addAll(game.guesses().subList(adapter.getCount(), game.guesses().size()));
@@ -172,16 +181,6 @@ public class MainActivity extends AppCompatActivity {
     binding
         .guessInput
         .addTextChangedListener(guessReadyWatcher);
-  }
-
-  private void updateGuessControls() {
-    if (solved || game == null) {
-      binding.guessInput.setEnabled(false);
-      binding.submitGuess.setEnabled(false);
-    } else {
-      binding.guessInput.setEnabled(true);
-      binding.submitGuess.setEnabled(guessReady);
-    }
   }
 
   private static class GuessPoolFilter implements InputFilter {
