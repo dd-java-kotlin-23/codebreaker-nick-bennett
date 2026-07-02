@@ -23,10 +23,14 @@ import edu.cnm.deepdive.codebreaker.app.adapter.GuessListAdapter;
 import edu.cnm.deepdive.codebreaker.app.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.codebreaker.app.viewmodel.GameViewModel;
 import edu.cnm.deepdive.codebreaker.model.Game;
+import jakarta.inject.Inject;
 import java.util.regex.Pattern;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+
+  @Inject
+  GuessListAdapter adapter;
 
   private ActivityMainBinding binding;
   private GameViewModel viewModel;
@@ -34,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
   private boolean solved;
   private Game game;
   private TextWatcher guessReadyWatcher;
-  private GuessListAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +79,19 @@ public class MainActivity extends AppCompatActivity {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
       return insets;
     });
+    binding.guessList.setAdapter(adapter);
   }
 
   private void startGame() {
     disableGameControls();
     binding.guessInput.setText("");
     viewModel.startGame();
+  }
+
+  private void submitGuess() {
+    disableGameControls();
+    //noinspection DataFlowIssue
+    viewModel.submitGuess(binding.guessInput.getText().toString());
   }
 
   private void showSettings() {
@@ -93,21 +103,12 @@ public class MainActivity extends AppCompatActivity {
     viewModel = new ViewModelProvider(this).get(GameViewModel.class);
     viewModel.getGame().observe(this, this::handleGame);
     viewModel.getSolved().observe(this, this::handleSolved);
-    viewModel
-        .getShowText()
-        .observe(this, (show) -> {
-          binding.guessListHeader.guessText.setVisibility(show ? View.VISIBLE : View.GONE);
-          // TODO: 7/2/26 Ask adapter to update its display.
-        });
+    viewModel.getShowText().observe(this, this::handleShowText);
     viewModel.getError().observe(this, this::handleError);
   }
 
   private void attachButtonListeners() {
-    binding.submitGuess.setOnClickListener((_) -> {
-      disableGameControls();
-      //noinspection DataFlowIssue
-      viewModel.submitGuess(binding.guessInput.getText().toString());
-    });
+    binding.submitGuess.setOnClickListener((_) -> submitGuess());
   }
 
   private void updateGuessControls() {
@@ -121,9 +122,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void handleGame(Game game) {
-    if (adapter == null || !game.equals(this.game)) {
-      adapter = new GuessListAdapter(this, game.guesses());
-      binding.guessList.setAdapter(adapter);
+    if (!game.equals(this.game)) {
+      adapter.clear();
     }
     this.game = game;
     updateGameDisplay();
@@ -140,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
               Snackbar.LENGTH_LONG)
           .show();
     }
+  }
+
+  private void handleShowText(Boolean show) {
+    adapter.setShowText(show);
+    binding.guessListHeader.guessText.setVisibility(show ? View.VISIBLE : View.GONE);
+    binding.guessList.postInvalidate();
   }
 
   private void handleError(Throwable error) {

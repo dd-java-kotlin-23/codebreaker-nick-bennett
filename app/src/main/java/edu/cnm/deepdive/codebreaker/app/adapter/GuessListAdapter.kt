@@ -6,12 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import dagger.hilt.android.qualifiers.ActivityContext
 import edu.cnm.deepdive.codebreaker.app.R
 import edu.cnm.deepdive.codebreaker.app.databinding.ItemGuessBinding
 import edu.cnm.deepdive.codebreaker.model.Guess
+import jakarta.inject.Inject
 
-class GuessListAdapter(context: Context, guesses: List<Guess>) :
-    ArrayAdapter<Guess>(context, R.layout.item_guess, guesses) {
+class GuessListAdapter @Inject constructor(@ActivityContext context: Context) :
+    ArrayAdapter<Guess>(context, R.layout.item_guess, mutableListOf()) {
+
+    var showText = true
+        set(value) {
+            val changed = value != field
+            field = value
+            if (changed) {
+                notifyDataSetChanged()
+            }
+        }
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -31,7 +42,13 @@ class GuessListAdapter(context: Context, guesses: List<Guess>) :
             ItemGuessBinding.bind(convertView)
         }
         binding.guessNumber.text = (count - position).toString()
-        binding.guessText.text = guess.text
+        if (showText) {
+            binding.guessText.text = guess.text
+            binding.guessText.visibility = View.VISIBLE
+        } else {
+            binding.guessText.text = ""
+            binding.guessText.visibility = View.GONE
+        }
         binding.exactMatches.text = guess.exactMatches.toString()
         binding.nearMatches.text = guess.nearMatches.toString()
         return binding.root
