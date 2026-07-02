@@ -17,7 +17,8 @@ paths:
       summary: Start new game
       description: Starts a new game, randomly generating a secret code using the properties specified in the request body.
       operationId: startGame
-      tags: [Codebreaker]
+      tags:
+        - Codebreaker
       requestBody:
         required: true
         content:
@@ -48,7 +49,8 @@ paths:
       summary: Retrieve a game
       description: Returns the game with the unique identifier specified by gameId.
       operationId: getGame
-      tags: [Codebreaker]
+      tags:
+        - Codebreaker
       parameters:
         - name: gameId
           in: path
@@ -74,7 +76,8 @@ paths:
       summary: Delete a game
       description: Deletes the game (and all related guesses) with the unique identifier gameId.
       operationId: deleteGame
-      tags: [Codebreaker]
+      tags:
+        - Codebreaker
       parameters:
         - name: gameId
           in: path
@@ -97,7 +100,8 @@ paths:
       summary: Submit a guess
       description: Submits a guess against the game specified by gameId.
       operationId: submitGuess
-      tags: [Codebreaker]
+      tags:
+        - Codebreaker
       parameters:
         - name: gameId
           in: path
@@ -147,7 +151,8 @@ paths:
       summary: Retrieve a guess
       description: Returns the guess with the unique identifier guessId submitted in the game identified by gameId.
       operationId: getGuess
-      tags: [Codebreaker]
+      tags:
+        - Codebreaker
       parameters:
         - name: gameId
           in: path

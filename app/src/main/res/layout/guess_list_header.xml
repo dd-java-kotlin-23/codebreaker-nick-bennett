@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   android:orientation="horizontal"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:padding="@dimen/half_dynamic_spacing"
-  android:gravity="center_vertical">
+  android:paddingHorizontal="@dimen/half_dynamic_spacing"
+  android:background="@drawable/header_background">
 
   <TextView
-    android:id="@+id/guess_number"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
     android:layout_weight="2"
-    style="@style/GuessItemColumn"
-    tools:text="1"/>
+    android:text="@string/guess_number_header"
+    style="@style/GuessItemColumn.Header"/>
 
   <TextView
     android:id="@+id/guess_text"
@@ -23,8 +21,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
     android:layout_weight="4"
-    style="@style/GuessItemColumn.StartAligned"
-    tools:text="ABCD"/>
+    android:text="@string/guess_text_header"
+    style="@style/GuessItemColumn.StartAligned.Header"/>
 
   <TextView
     android:id="@+id/exact_matches"
@@ -32,8 +30,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
     android:layout_weight="3"
-    style="@style/GuessItemColumn"
-    tools:text="0"/>
+    android:text="@string/exact_matches_header"
+    style="@style/GuessItemColumn.Header"/>
 
   <TextView
     android:id="@+id/near_matches"
@@ -41,7 +39,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
     android:layout_weight="3"
-    style="@style/GuessItemColumn"
-    tools:text="2"/>
+    android:text="@string/near_matches_header"
+    style="@style/GuessItemColumn.Header"/>
 
 </LinearLayout>

@@ -16,4 +16,8 @@
   <string name="show_text_summary_off">While guessing, the text of previous guesses will not be displayed.</string>
   <string name="show_text_summary_on">While guessing, the text of previous guesses will be displayed.</string>
   <string name="settings_title">Settings</string>
+  <string name="guess_number_header">#</string>
+  <string name="guess_text_header">Guess</string>
+  <string name="exact_matches_header">Exact</string>
+  <string name="near_matches_header">Near</string>
 </resources>

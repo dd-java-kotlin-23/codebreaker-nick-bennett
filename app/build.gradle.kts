@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt)
     alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -38,12 +41,6 @@ android {
         targetCompatibility = JavaVersion.valueOf("VERSION_${libs.versions.java.get()}")
     }
 
-//    kotlin {
-//        compilerOptions {
-//            jvmTarget = JvmTarget.valueOf("JVM_${libs.versions.java.get()}")
-//        }
-//    }
-
     packaging {
         resources {
             excludes += "/META-INF/NOTICE.md"
@@ -51,6 +48,12 @@ android {
         }
     }
 
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.valueOf("JVM_${libs.versions.java.get()}")
+    }
 }
 
 dependencies {
@@ -81,7 +84,7 @@ dependencies {
 
     implementation(libs.hilt.android.core)
     implementation(libs.dagger.core)
-    annotationProcessor(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation("jakarta.inject:jakarta.inject-api:2.0.1")
 
     // TODO: Add testing dependencies.

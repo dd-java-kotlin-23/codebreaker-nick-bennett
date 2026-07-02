@@ -10,15 +10,27 @@
     <item name="android:background">@null</item>
   </style>
 
-  <style name="GameParams" parent="TextAppearance.Material3.TitleLarge"/>
+  <style name="GameParams">
+    <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
+  </style>
 
   <style name="GuessItemColumn" parent="Widget.MaterialComponents.TextView">
     <item name="android:textAppearance">@style/TextAppearance.Material3.BodyMedium</item>
     <item name="android:textAlignment">center</item>
+    <item name="android:gravity">center</item>
   </style>
 
   <style name="GuessItemColumn.StartAligned">
     <item name="android:textAlignment">textStart</item>
+    <item name="android:gravity">start</item>
+  </style>
+
+  <style name="GuessItemColumn.Header">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="GuessItemColumn.StartAligned.Header">
+    <item name="android:textStyle">bold</item>
   </style>
 
 </resources>
