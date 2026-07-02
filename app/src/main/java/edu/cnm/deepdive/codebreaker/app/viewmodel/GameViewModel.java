@@ -57,12 +57,12 @@ public class GameViewModel extends ViewModel {
     return Transformations.distinctUntilChanged(solved);
   }
 
-  public LiveData<Throwable> getError() {
-    return error;
+  public LiveData<Boolean> getShowText() {
+    return Transformations.distinctUntilChanged(repository.getShowText());
   }
 
-  public LiveData<Boolean> getShowText() {
-    return repository.getShowText();
+  public LiveData<Throwable> getError() {
+    return error;
   }
 
   public void startGame() {

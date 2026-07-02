@@ -16,6 +16,14 @@ class GuessListAdapter @Inject constructor(@ActivityContext context: Context) :
     ArrayAdapter<Guess>(context, R.layout.item_guess, mutableListOf<Guess>()) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
+    var showText = true
+        set(value) {
+            val changed = field != value
+            field = value
+            if (changed) {
+                notifyDataSetChanged()
+            }
+        }
 
     override fun getItem(position: Int): Guess? =
         super.getItem(count - 1 - position)
@@ -33,7 +41,12 @@ class GuessListAdapter @Inject constructor(@ActivityContext context: Context) :
             ItemGuessBinding.bind(convertView)
         }
         binding.guessNumber.text = (count - position).toString()
-        binding.guessText.text = guess.text
+        if (showText) {
+            binding.guessText.text = guess.text
+        } else {
+            binding.guessText.text = ""
+            binding.guessText.visibility = View.GONE
+        }
         binding.exactMatches.text = guess.exactMatches.toString()
         binding.nearMatches.text = guess.nearMatches.toString()
         return binding.root

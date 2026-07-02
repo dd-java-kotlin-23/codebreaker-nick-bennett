@@ -87,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
     viewModel = new ViewModelProvider(this).get(GameViewModel.class);
     viewModel.getGame().observe(this, this::handleGame);
     viewModel.getSolved().observe(this, this::handleSolved);
+    viewModel.getShowText().observe(this, this::handleShowText);
     viewModel.getError().observe(this, this::handleError);
+  }
+
+  private void handleShowText(boolean showText) {
+    adapter.setShowText(showText);
+    binding.guessListHeader.guessText.setVisibility(showText ? View.VISIBLE : View.GONE);
+    binding.guessList.postInvalidate();
   }
 
   private void attachButtonListeners() {
