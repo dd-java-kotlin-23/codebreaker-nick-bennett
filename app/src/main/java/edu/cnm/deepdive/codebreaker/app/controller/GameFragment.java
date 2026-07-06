@@ -15,8 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import com.google.android.material.snackbar.Snackbar;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.codebreaker.app.R;
@@ -58,6 +62,12 @@ public class GameFragment extends Fragment implements MenuProvider {
   }
 
   @Override
+  public void onDestroyView() {
+    binding = null;
+    super.onDestroyView();
+  }
+
+  @Override
   public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
     menuInflater.inflate(R.menu.game_options, menu);
   }
@@ -93,16 +103,19 @@ public class GameFragment extends Fragment implements MenuProvider {
   }
 
   private void showSettings() {
-    // TODO: 7/6/26 Use fragment navigation to open SettingsFragment.
+    NavController navController = Navigation.findNavController(binding.getRoot());
+    navController.navigate(GameFragmentDirections.showSettings());
   }
 
   private void setupViewModel() {
-    viewModel = new ViewModelProvider(requireActivity()).get(GameViewModel.class);
+    FragmentActivity activity = requireActivity();
+    viewModel = new ViewModelProvider(activity).get(GameViewModel.class);
     LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
     viewModel.getGame().observe(viewLifecycleOwner, this::handleGame);
     viewModel.getSolved().observe(viewLifecycleOwner, this::handleSolved);
     viewModel.getShowText().observe(viewLifecycleOwner, this::handleShowText);
     viewModel.getError().observe(viewLifecycleOwner, this::handleError);
+    activity.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED);
   }
 
   private void attachButtonListeners() {
