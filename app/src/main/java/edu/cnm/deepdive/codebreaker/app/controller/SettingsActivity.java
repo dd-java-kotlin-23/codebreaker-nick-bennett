@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.preference.PreferenceFragmentCompat;
 import edu.cnm.deepdive.codebreaker.app.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -26,15 +25,6 @@ public class SettingsActivity extends AppCompatActivity {
       view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
       return insets;
     });
-  }
-
-  public static class SettingsFragment extends PreferenceFragmentCompat {
-
-    @Override
-    public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-      setPreferencesFromResource(R.xml.settings, rootKey);
-    }
-
   }
 
 }
