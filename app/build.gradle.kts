@@ -22,6 +22,8 @@ android {
 
         resValue("string", "app_name", project.property("appName") as String)
 
+
+
     }
 
     buildTypes {
@@ -56,6 +58,10 @@ kotlin {
     }
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     implementation(project(":client"))
     implementation(project(":services"))
@@ -78,9 +84,12 @@ dependencies {
     implementation(libs.material)
 
     implementation(libs.kotlin)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.coroutines.jdk8)
+    implementation(libs.kotlin.coroutines.android)
 
     implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     implementation(libs.hilt.android.core)
     implementation(libs.dagger.core)

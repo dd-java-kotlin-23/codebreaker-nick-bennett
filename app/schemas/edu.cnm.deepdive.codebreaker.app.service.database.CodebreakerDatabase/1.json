@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "16a6886f54bf78b18d794ef594f15247",
+    "entities": [
+      {
+        "tableName": "incomplete_game",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`incomplete_game_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `external_key` TEXT NOT NULL, `code_length` INTEGER NOT NULL, `pool_size` INTEGER NOT NULL, `started` INTEGER NOT NULL, `updated` INTEGER NOT NULL, `guess_count` INTEGER NOT NULL, `exact_matches` INTEGER NOT NULL, `near_matches` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "incomplete_game_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "externalKey",
+            "columnName": "external_key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codeLength",
+            "columnName": "code_length",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "poolSize",
+            "columnName": "pool_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "started",
+            "columnName": "started",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated",
+            "columnName": "updated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guessCount",
+            "columnName": "guess_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exactMatches",
+            "columnName": "exact_matches",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nearMatches",
+            "columnName": "near_matches",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "incomplete_game_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_incomplete_game_external_key",
+            "unique": true,
+            "columnNames": [
+              "external_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_incomplete_game_external_key` ON `${TABLE_NAME}` (`external_key`)"
+          },
+          {
+            "name": "index_incomplete_game_updated",
+            "unique": false,
+            "columnNames": [
+              "updated"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_incomplete_game_updated` ON `${TABLE_NAME}` (`updated`)"
+          }
+        ]
+      },
+      {
+        "tableName": "complete_game",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`complete_game_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code_length` INTEGER NOT NULL, `pool_size` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `elapsed_time` INTEGER NOT NULL, `guess_count` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "complete_game_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codeLength",
+            "columnName": "code_length",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "poolSize",
+            "columnName": "pool_size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completed",
+            "columnName": "completed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "elapsedTime",
+            "columnName": "elapsed_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guessCount",
+            "columnName": "guess_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "complete_game_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_complete_game_code_length_pool_size_guess_count_elapsed_time",
+            "unique": false,
+            "columnNames": [
+              "code_length",
+              "pool_size",
+              "guess_count",
+              "elapsed_time"
+            ],
+            "orders": [
+              "ASC",
+              "ASC",
+              "ASC",
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_complete_game_code_length_pool_size_guess_count_elapsed_time` ON `${TABLE_NAME}` (`code_length` ASC, `pool_size` ASC, `guess_count` ASC, `elapsed_time` ASC)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16a6886f54bf78b18d794ef594f15247')"
+    ]
+  }
+}
