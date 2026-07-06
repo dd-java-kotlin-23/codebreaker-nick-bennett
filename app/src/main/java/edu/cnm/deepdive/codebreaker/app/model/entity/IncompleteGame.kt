@@ -29,14 +29,14 @@ data class IncompleteGame(
 
     val started: OffsetDateTime = OffsetDateTime.now(),
 
-    var updated: OffsetDateTime = OffsetDateTime.now(),
+    val updated: OffsetDateTime = OffsetDateTime.now(),
 
     @ColumnInfo(name = "guess_count")
-    var guessCount: Int = 0,
+    val guessCount: Int = 0,
 
     @ColumnInfo(name = "exact_matches")
-    var exactMatches: Int = 0,
+    val exactMatches: Int = 0,
 
     @ColumnInfo(name = "near_matches")
-    var nearMatches: Int = 0,
+    val nearMatches: Int = 0,
 )
