@@ -107,6 +107,11 @@ public class GameFragment extends Fragment implements MenuProvider {
     navController.navigate(GameFragmentDirections.showSettings());
   }
 
+  private void showIncompleteGames() {
+    NavController navController = Navigation.findNavController(binding.getRoot());
+    navController.navigate(GameFragmentDirections.showIncompleteGames());
+  }
+
   private void setupViewModel() {
     FragmentActivity activity = requireActivity();
     viewModel = new ViewModelProvider(activity).get(GameViewModel.class);
@@ -120,6 +125,7 @@ public class GameFragment extends Fragment implements MenuProvider {
 
   private void attachButtonListeners() {
     binding.submitGuess.setOnClickListener((_) -> submitGuess());
+    binding.showIncompleteGames.setOnClickListener((_) -> showIncompleteGames());
   }
 
   private void updateGuessControls() {

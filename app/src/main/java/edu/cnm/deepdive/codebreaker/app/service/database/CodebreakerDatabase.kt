@@ -34,7 +34,7 @@ abstract class CodebreakerDatabase : RoomDatabase() {
         @JvmStatic
         @TypeConverter
         fun toLong(value: OffsetDateTime?): Long? =
-            value?.toEpochSecond()
+            value?.toInstant()?.toEpochMilli()
 
         @JvmStatic
         @TypeConverter

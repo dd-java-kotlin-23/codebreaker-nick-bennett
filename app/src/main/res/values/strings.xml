@@ -27,4 +27,8 @@
   <string name="code_length_header">Code length</string>
   <string name="pool_size_header">Pool size</string>
   <string name="guess_count_header">Guesses</string>
+  <string name="incomplete_games_fragment_label">Incomplete Games</string>
+  <string name="settings_fragment_label">Settings</string>
+  <string name="show_incomplete_games_tooltip">Show incomplete games</string>
+  <string name="show_game_tooltip">Show current game</string>
 </resources>

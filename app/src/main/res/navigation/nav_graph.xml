@@ -8,16 +8,34 @@
   <fragment
     android:id="@+id/game_fragment"
     android:name="edu.cnm.deepdive.codebreaker.app.controller.GameFragment"
+    android:label="@string/app_name"
     tools:layout="@layout/fragment_game">
 
     <action
       android:id="@+id/show_settings"
       app:destination="@id/settings_fragment"/>
 
+    <action
+      android:id="@+id/show_incomplete_games"
+      app:destination="@id/incomplete_games_fragment"/>
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/incomplete_games_fragment"
+    android:name="edu.cnm.deepdive.codebreaker.app.controller.IncompleteGamesFragment"
+    android:label="@string/incomplete_games_fragment_label"
+    tools:layout="@layout/fragment_incomplete_games">
+
+    <action
+      android:id="@+id/show_game_fragment"
+      app:destination="@id/game_fragment"/>
+
   </fragment>
 
   <fragment
     android:id="@+id/settings_fragment"
+    android:label="@string/settings_fragment_label"
     android:name="edu.cnm.deepdive.codebreaker.app.controller.SettingsFragment"/>
 
 </navigation>
