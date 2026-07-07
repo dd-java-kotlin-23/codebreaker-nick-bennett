@@ -14,13 +14,13 @@
     <item name="android:textAppearance">@style/TextAppearance.Material3.TitleMedium</item>
   </style>
 
-  <style name="GuessItemColumn" parent="Widget.MaterialComponents.TextView">
+  <style name="ItemColumn" parent="Widget.MaterialComponents.TextView">
     <item name="android:textAppearance">@style/TextAppearance.Material3.BodyMedium</item>
     <item name="android:textAlignment">center</item>
     <item name="android:gravity">center</item>
   </style>
 
-  <style name="GuessItemColumn.Header">
+  <style name="ItemColumn.Header">
     <item name="android:textStyle">bold</item>
   </style>
 

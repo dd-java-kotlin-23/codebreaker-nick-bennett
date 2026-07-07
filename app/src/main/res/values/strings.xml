@@ -21,4 +21,10 @@
   <string name="exact_matches_header">Exact</string>
   <string name="near_matches_header">Near</string>
   <string name="master_pool">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="updated_header">Date</string>
+  <string name="code_length_header">Code length</string>
+  <string name="pool_size_header">Pool size</string>
+  <string name="guess_count_header">Guesses</string>
 </resources>

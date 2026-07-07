@@ -11,11 +11,13 @@ import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import edu.cnm.deepdive.codebreaker.app.R;
+import edu.cnm.deepdive.codebreaker.app.model.entity.IncompleteGame;
 import edu.cnm.deepdive.codebreaker.app.repository.GameRepository;
 import edu.cnm.deepdive.codebreaker.app.repository.PreferencesRepository;
 import edu.cnm.deepdive.codebreaker.model.Game;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerService;
 import jakarta.inject.Inject;
+import java.util.List;
 
 @HiltViewModel
 public class GameViewModel extends ViewModel {
@@ -89,6 +91,10 @@ public class GameViewModel extends ViewModel {
         .thenCompose(gameRepository::save)
         .thenAccept(game::postValue)
         .exceptionally(this::postError);
+  }
+
+  public LiveData<List<IncompleteGame>> getIncompleteGames() {
+    return gameRepository.getAll();
   }
 
   private void setCodeLength(Integer codeLength) {
