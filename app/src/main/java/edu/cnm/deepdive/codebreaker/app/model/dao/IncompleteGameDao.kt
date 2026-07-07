@@ -21,6 +21,9 @@ interface IncompleteGameDao {
     @Delete
     suspend fun delete(game: IncompleteGame): Int
 
+    @Query("DELETE FROM incomplete_game WHERE external_key = :externalKey")
+    suspend fun delete(externalKey: String): Int
+
     @Delete
     suspend fun delete(games: Collection<IncompleteGame>): Int
 

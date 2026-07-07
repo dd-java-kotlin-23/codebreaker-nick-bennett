@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "16a6886f54bf78b18d794ef594f15247",
+    "identityHash": "10d0d61270306aba36cdf960f433f204",
     "entities": [
       {
         "tableName": "incomplete_game",
@@ -92,12 +92,18 @@
       },
       {
         "tableName": "complete_game",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`complete_game_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `code_length` INTEGER NOT NULL, `pool_size` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `elapsed_time` INTEGER NOT NULL, `guess_count` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`complete_game_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `external_key` TEXT NOT NULL, `code_length` INTEGER NOT NULL, `pool_size` INTEGER NOT NULL, `completed` INTEGER NOT NULL, `elapsed_time` INTEGER NOT NULL, `guess_count` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "complete_game_id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "externalKey",
+            "columnName": "external_key",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -154,13 +160,22 @@
               "ASC"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_complete_game_code_length_pool_size_guess_count_elapsed_time` ON `${TABLE_NAME}` (`code_length` ASC, `pool_size` ASC, `guess_count` ASC, `elapsed_time` ASC)"
+          },
+          {
+            "name": "index_complete_game_external_key",
+            "unique": true,
+            "columnNames": [
+              "external_key"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_complete_game_external_key` ON `${TABLE_NAME}` (`external_key`)"
           }
         ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16a6886f54bf78b18d794ef594f15247')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '10d0d61270306aba36cdf960f433f204')"
     ]
   }
 }

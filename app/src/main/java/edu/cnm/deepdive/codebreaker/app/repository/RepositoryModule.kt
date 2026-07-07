@@ -12,4 +12,7 @@ interface RepositoryModule {
     @Binds
     fun bindPreferenceRepository(impl: PreferencesRepositoryImpl): PreferencesRepository
 
+    @Binds
+    fun bindGameRepository(impl: GameRepositoryImpl): GameRepository
+
 }

@@ -13,6 +13,7 @@ import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
 private const val VERSION = 1
+private const val DATABASE_NAME = "codebreaker"
 
 @Database(
     entities = [IncompleteGame::class, CompleteGame::class],
@@ -26,6 +27,10 @@ abstract class CodebreakerDatabase : RoomDatabase() {
     abstract fun getCompleteGameDao(): CompleteGameDao
 
     companion object {
+
+        val name: String
+            get() = DATABASE_NAME
+
         @JvmStatic
         @TypeConverter
         fun toLong(value: OffsetDateTime?): Long? =
