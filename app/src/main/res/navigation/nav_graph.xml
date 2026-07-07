@@ -15,10 +15,6 @@
       android:id="@+id/show_settings"
       app:destination="@id/settings_fragment"/>
 
-    <action
-      android:id="@+id/show_incomplete_games"
-      app:destination="@id/incomplete_games_fragment"/>
-
   </fragment>
 
   <fragment
@@ -26,10 +22,6 @@
     android:name="edu.cnm.deepdive.codebreaker.app.controller.IncompleteGamesFragment"
     android:label="@string/incomplete_games_fragment_label"
     tools:layout="@layout/fragment_incomplete_games">
-
-    <action
-      android:id="@+id/show_game_fragment"
-      app:destination="@id/game_fragment"/>
 
   </fragment>
 

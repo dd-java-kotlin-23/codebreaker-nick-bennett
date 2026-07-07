@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.codebreaker.app.adapter.IncompleteGameAdapter;
 import edu.cnm.deepdive.codebreaker.app.databinding.FragmentIncompleteGamesBinding;
@@ -30,10 +28,6 @@ public class IncompleteGamesFragment extends Fragment {
       Bundle savedInstanceState) {
     binding = FragmentIncompleteGamesBinding.inflate(inflater, container, false);
     // TODO: 7/7/26 Attach listeners, etc.
-    binding.showGame.setOnClickListener((_) -> {
-      NavController controller = Navigation.findNavController(binding.getRoot());
-      controller.navigate(IncompleteGamesFragmentDirections.showGameFragment());
-    });
     return binding.getRoot();
   }
 

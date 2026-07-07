@@ -31,4 +31,6 @@
   <string name="settings_fragment_label">Settings</string>
   <string name="show_incomplete_games_tooltip">Show incomplete games</string>
   <string name="show_game_tooltip">Show current game</string>
+  <string name="game_fragment_option_title">Play</string>
+  <string name="incomplete_games_fragment_option_title">In-progress</string>
 </resources>

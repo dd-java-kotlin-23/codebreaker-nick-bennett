@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     NavHostFragment host = binding.navHostFragmentContainer.getFragment();
     navController = host.getNavController();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
+    NavigationUI.setupWithNavController(binding.navBar, navController);
   }
 
 }
