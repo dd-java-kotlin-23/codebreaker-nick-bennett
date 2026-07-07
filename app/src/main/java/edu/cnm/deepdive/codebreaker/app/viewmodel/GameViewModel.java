@@ -74,6 +74,7 @@ public class GameViewModel extends ViewModel {
     error.setValue(null);
     service
         .startGame(masterPool.substring(0, poolSize), codeLength)
+
         .thenAccept(game::postValue)
         .exceptionally(this::postError);
   }

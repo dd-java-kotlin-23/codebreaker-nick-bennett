@@ -29,7 +29,7 @@ data class IncompleteGame(
 
     val started: OffsetDateTime = OffsetDateTime.now(),
 
-    val updated: OffsetDateTime = OffsetDateTime.now(),
+    val updated: OffsetDateTime = started,
 
     @ColumnInfo(name = "guess_count")
     val guessCount: Int = 0,

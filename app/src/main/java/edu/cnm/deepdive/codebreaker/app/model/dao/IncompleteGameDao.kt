@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import edu.cnm.deepdive.codebreaker.app.model.entity.IncompleteGame
 
 @Dao
 interface IncompleteGameDao {
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(game: IncompleteGame): Long
 
     @Update
@@ -20,7 +22,7 @@ interface IncompleteGameDao {
     suspend fun delete(game: IncompleteGame): Int
 
     @Delete
-    suspend fun delete(games: List<IncompleteGame>): Int
+    suspend fun delete(games: Collection<IncompleteGame>): Int
 
     @Query("DELETE FROM incomplete_game")
     suspend fun deleteAll(): Int
