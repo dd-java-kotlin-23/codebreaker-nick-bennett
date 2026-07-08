@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.codebreaker.app.controller;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class IncompleteGamesFragment extends Fragment {
     return binding.getRoot();
   }
 
+  @SuppressLint("NotifyDataSetChanged")
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -55,6 +57,7 @@ public class IncompleteGamesFragment extends Fragment {
           adapter.clear();
           adapter.addAll(games);
           adapter.notifyDataSetChanged();
+          binding.waitingIndicator.setVisibility(View.GONE);
         });
     viewModel
         .getGame()
@@ -80,10 +83,12 @@ public class IncompleteGamesFragment extends Fragment {
     MenuItem playItem = menu.findItem(R.id.play_game);
     if (!game.getExternalKey().equals(this.game.id())) {
       deleteItem.setOnMenuItemClickListener((_) -> {
+        binding.waitingIndicator.setVisibility(View.VISIBLE);
         viewModel.deleteGame(game.getExternalKey());
         return true;
       });
       playItem.setOnMenuItemClickListener((_) -> {
+        binding.waitingIndicator.setVisibility(View.VISIBLE);
         viewModel.getGame(game.getExternalKey());
         return true;
       });
