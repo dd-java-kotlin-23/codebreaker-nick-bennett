@@ -45,6 +45,12 @@ class GameRepositoryImpl @Inject constructor(
             null
         }
 
+    override fun delete(externalKey: String): CompletableFuture<Void?> =
+        scope.future {
+            incompleteGameDao.delete(externalKey)
+            null
+        }
+
     override fun deleteAllIncomplete(): CompletableFuture<Void?> =
         scope.future {
             incompleteGameDao.deleteAll()

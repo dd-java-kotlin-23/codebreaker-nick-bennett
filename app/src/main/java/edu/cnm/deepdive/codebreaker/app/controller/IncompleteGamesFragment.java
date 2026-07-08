@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.codebreaker.app.controller;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import jakarta.inject.Inject;
 
 @AndroidEntryPoint
 public class IncompleteGamesFragment extends Fragment {
+
+  private static final String TAG = IncompleteGamesFragment.class.getSimpleName();
 
   @Inject
   IncompleteGameAdapter adapter;
@@ -34,6 +37,7 @@ public class IncompleteGamesFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    adapter.setListener((v, game) -> Log.d(TAG, game.toString()));
     binding.incompleteGames.setAdapter(adapter);
     viewModel = new ViewModelProvider(requireActivity()).get(GameViewModel.class);
     viewModel

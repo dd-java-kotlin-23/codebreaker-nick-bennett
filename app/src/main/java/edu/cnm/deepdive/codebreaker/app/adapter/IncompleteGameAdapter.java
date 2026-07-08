@@ -2,6 +2,7 @@ package edu.cnm.deepdive.codebreaker.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,8 @@ public class IncompleteGameAdapter extends RecyclerView.Adapter<RecyclerView.Vie
   private final NumberFormat numberFormatter;
   private final LayoutInflater inflater;
   private final List<IncompleteGame> games;
+
+  private OnLongPressListener listener;
 
   @Inject
   IncompleteGameAdapter(@ActivityContext Context context) {
@@ -56,6 +59,10 @@ public class IncompleteGameAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     this.games.addAll(games);
   }
 
+  public void setListener(OnLongPressListener listener) {
+    this.listener = listener;
+  }
+
   private class Holder extends RecyclerView.ViewHolder {
 
     private final ItemIncompleteGameBinding binding;
@@ -73,8 +80,23 @@ public class IncompleteGameAdapter extends RecyclerView.Adapter<RecyclerView.Vie
       binding.guessCount.setText(numberFormatter.format(game.getGuessCount()));
       binding.exactMatches.setText(numberFormatter.format(game.getExactMatches()));
       binding.nearMatches.setText(numberFormatter.format(game.getNearMatches()));
-      // TODO: 7/7/26 Set listeners for long-press and/or icon clicks.
+      binding.getRoot().setOnLongClickListener((view) -> handleLongClick(view, game));
     }
+
+    private boolean handleLongClick(View view, IncompleteGame game) {
+      if (listener != null) {
+        listener.onLongPress(view, game);
+        return true;
+      }
+      return false;
+    }
+
+  }
+
+  @FunctionalInterface
+  public interface OnLongPressListener {
+
+    void onLongPress(View view, IncompleteGame game);
 
   }
 

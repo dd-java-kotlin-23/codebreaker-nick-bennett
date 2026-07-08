@@ -14,6 +14,8 @@ interface GameRepository {
 
     fun delete(games: Collection<IncompleteGame>): CompletableFuture<Void?>
 
+    fun delete(externalKey: String): CompletableFuture<Void?>
+
     fun deleteAllIncomplete(): CompletableFuture<Void?>
 
     fun deleteAllComplete(): CompletableFuture<Void?>

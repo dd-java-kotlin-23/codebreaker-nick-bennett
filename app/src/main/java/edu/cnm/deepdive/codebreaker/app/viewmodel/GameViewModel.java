@@ -93,6 +93,23 @@ public class GameViewModel extends ViewModel {
         .exceptionally(this::postError);
   }
 
+  public void getGame(String gameId) {
+    error.setValue(null);
+    service
+        .getGame(gameId)
+        .thenCompose(gameRepository::save)
+        .thenAccept(game::postValue)
+        .exceptionally(this::postError); // TODO: 7/8/26 Handle non-existent game.
+  }
+
+  public void deleteGame(String gameId) {
+    error.setValue(null);
+    gameRepository
+        .delete(gameId)
+        .thenCompose((_) -> service.deleteGame(gameId))
+        .exceptionally(this::postError); // TODO: 7/8/26 How to indicate non-existent game.
+  }
+
   public LiveData<List<IncompleteGame>> getIncompleteGames() {
     return gameRepository.getAll();
   }
