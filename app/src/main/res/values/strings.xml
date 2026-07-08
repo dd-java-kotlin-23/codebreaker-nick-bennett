@@ -33,4 +33,6 @@
   <string name="show_game_tooltip">Show current game</string>
   <string name="game_fragment_option_title">Play</string>
   <string name="incomplete_games_fragment_option_title">In-progress</string>
+  <string name="play_game_title">Play</string>
+  <string name="delete_game_title">Delete</string>
 </resources>

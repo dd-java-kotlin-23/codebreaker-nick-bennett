@@ -23,6 +23,10 @@
     android:label="@string/incomplete_games_fragment_label"
     tools:layout="@layout/fragment_incomplete_games">
 
+    <action
+      android:id="@+id/show_game_fragment"
+      app:destination="@id/game_fragment"/>
+
   </fragment>
 
   <fragment

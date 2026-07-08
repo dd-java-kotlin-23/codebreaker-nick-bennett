@@ -36,7 +36,8 @@ class CodebreakerServiceImpl implements CodebreakerService {
 
   @Override
   public CompletableFuture<Game> getGame(String id) {
-    return proxy.getGame(id).thenApply(CodebreakerServiceImpl::buildGame);
+    return proxy
+        .getGame(id).thenApply(CodebreakerServiceImpl::buildGame);
   }
 
   @Override
