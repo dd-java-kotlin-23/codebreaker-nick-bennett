@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import edu.cnm.deepdive.codebreaker.app.R;
+import edu.cnm.deepdive.codebreaker.app.model.entity.CompleteGame;
 import edu.cnm.deepdive.codebreaker.app.model.entity.IncompleteGame;
 import edu.cnm.deepdive.codebreaker.app.repository.GameRepository;
 import edu.cnm.deepdive.codebreaker.app.repository.PreferencesRepository;
@@ -27,15 +29,18 @@ public class GameViewModel extends ViewModel {
   private final CodebreakerService service;
   private final PreferencesRepository preferencesRepository;
   private final GameRepository gameRepository;
-  private final MutableLiveData<Game> game;
-  private final LiveData<Boolean> solved;
-  private final MutableLiveData<Throwable> error;
-  private final Observer<Integer> codeLengthObserver = this::setCodeLength;
-  private final Observer<Integer> poolSizeObserver = this::setPoolSize;
+  private final MutableLiveData<Game> game = new MutableLiveData<>();
+  private final LiveData<Boolean> solved = Transformations.map(game, Game::isSolved);
+  private final MutableLiveData<Integer> codeLength = new MutableLiveData<>();
+  private final MutableLiveData<Integer> poolSize = new MutableLiveData<>();
+  private final LiveData<List<CompleteGame>> completeGames = buildCompleteGameLiveData();
+  private final MutableLiveData<Throwable> error = new MutableLiveData<>();
+  private final Observer<Integer> codeLengthObserver = this::setCodeLengthPreference;
+  private final Observer<Integer> poolSizeObserver = this::setPoolSizePreference;
   private final String masterPool;
 
-  private int codeLength;
-  private int poolSize;
+  private int codeLengthPreference;
+  private int poolSizePreference;
   private boolean gameStarted;
 
   @Inject
@@ -44,9 +49,6 @@ public class GameViewModel extends ViewModel {
     this.service = service;
     this.preferencesRepository = preferencesRepository;
     this.gameRepository = gameRepository;
-    game = new MutableLiveData<>();
-    solved = Transformations.map(game, Game::isSolved);
-    error = new MutableLiveData<>();
     masterPool = context.getString(R.string.master_pool);
     preferencesRepository.getCodeLength().observeForever(codeLengthObserver);
     preferencesRepository.getPoolSize().observeForever(poolSizeObserver);
@@ -68,6 +70,14 @@ public class GameViewModel extends ViewModel {
     return error;
   }
 
+  public void setCodeLength(int codeLength) {
+    this.codeLength.setValue(codeLength);
+  }
+
+  public void setPoolSize(int poolSize) {
+    this.poolSize.setValue(poolSize);
+  }
+
   @Override
   protected void onCleared() {
     preferencesRepository.getCodeLength().removeObserver(codeLengthObserver);
@@ -78,7 +88,7 @@ public class GameViewModel extends ViewModel {
   public void startGame() {
     error.setValue(null);
     service
-        .startGame(masterPool.substring(0, poolSize), codeLength)
+        .startGame(masterPool.substring(0, poolSizePreference), codeLengthPreference)
         .thenCompose(gameRepository::save)
         .thenAccept(game::postValue)
         .exceptionally(this::postError);
@@ -114,21 +124,35 @@ public class GameViewModel extends ViewModel {
     return gameRepository.getAll();
   }
 
-  private void setCodeLength(Integer codeLength) {
-    this.codeLength = codeLength;
+  public LiveData<List<CompleteGame>> getCompleteGames() {
+    return completeGames;
+  }
+
+  private void setCodeLengthPreference(Integer codeLengthPreference) {
+    this.codeLengthPreference = codeLengthPreference;
     checkGameStarted();
   }
 
-  private void setPoolSize(Integer poolSize) {
-    this.poolSize = poolSize;
+  private void setPoolSizePreference(Integer poolSizePreference) {
+    this.poolSizePreference = poolSizePreference;
     checkGameStarted();
   }
 
   private void checkGameStarted() {
-    if (!gameStarted && codeLength > 0 && poolSize > 0) {
+    if (!gameStarted && codeLengthPreference > 0 && poolSizePreference > 0) {
       gameStarted = true;
       startGame();
     }
+  }
+
+  private LiveData<List<CompleteGame>> buildCompleteGameLiveData() {
+    MediatorLiveData<QueryCriteria> criteria = new MediatorLiveData<>();
+    criteria.addSource(codeLength, (length) ->
+        criteria.setValue(new QueryCriteria(length, poolSize.getValue())));
+    criteria.addSource(poolSize, (size) ->
+        criteria.setValue(new QueryCriteria(codeLength.getValue(), size)));
+    return Transformations.switchMap(criteria, (crit) ->
+        gameRepository.get(crit.codeLength(), crit.poolSize()));
   }
 
   @Nullable
@@ -137,5 +161,7 @@ public class GameViewModel extends ViewModel {
     this.error.postValue(error);
     return null;
   }
+
+  private record QueryCriteria(int codeLength, int poolSize) {}
 
 }
