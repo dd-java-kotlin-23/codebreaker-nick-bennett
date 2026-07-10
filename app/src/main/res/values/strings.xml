@@ -35,4 +35,7 @@
   <string name="incomplete_games_fragment_option_title">In-progress</string>
   <string name="play_game_title">Play</string>
   <string name="delete_game_title">Delete</string>
+  <string name="code_length_label">Code length</string>
+  <string name="pool_size_label">Pool size</string>
+  <string name="complete_games_fragment_option_title">Scoreboard</string>
 </resources>

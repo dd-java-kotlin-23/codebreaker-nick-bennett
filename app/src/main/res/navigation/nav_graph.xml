@@ -30,6 +30,11 @@
   </fragment>
 
   <fragment
+    android:id="@+id/complete_games_fragment"
+    android:name="edu.cnm.deepdive.codebreaker.app.controller.CompleteGamesFragment"
+    tools:layout="@layout/fragment_complete_games"/>
+
+  <fragment
     android:id="@+id/settings_fragment"
     android:label="@string/settings_fragment_label"
     android:name="edu.cnm.deepdive.codebreaker.app.controller.SettingsFragment"/>

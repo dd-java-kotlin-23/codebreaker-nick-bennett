@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
   private void setupNavigation() {
     appBarConfig = new AppBarConfiguration.Builder(
-        R.id.game_fragment, R.id.incomplete_games_fragment).build();
+        R.id.game_fragment, R.id.incomplete_games_fragment, R.id.complete_games_fragment)
+        .build();
     NavHostFragment host = binding.navHostFragmentContainer.getFragment();
     navController = host.getNavController();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);

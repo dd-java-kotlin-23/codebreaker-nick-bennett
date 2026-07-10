@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  >
 
   <item
     android:id="@+id/game_fragment"
@@ -10,5 +11,10 @@
     android:id="@+id/incomplete_games_fragment"
     android:title="@string/incomplete_games_fragment_option_title"
     android:icon="@drawable/outline_format_list_bulleted_24"/>
+
+  <item
+    android:id="@+id/complete_games_fragment"
+    android:title="@string/complete_games_fragment_option_title"
+    android:icon="@drawable/outline_format_list_numbered_24"/>
 
 </menu>

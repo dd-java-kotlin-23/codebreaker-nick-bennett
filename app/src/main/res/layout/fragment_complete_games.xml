@@ -3,10 +3,29 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
-  <!-- TODO Add Label for seek bar.-->
-  <!-- TODO Add current value display for seek bar.-->
+  <TextView
+    android:id="@+id/code_length_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/full_dynamic_spacing"
+    android:layout_marginStart="@dimen/full_dynamic_spacing"
+    android:text="@string/code_length_label"
+    style="@style/GameParams"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <TextView
+    android:id="@+id/code_length_value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/full_dynamic_spacing"
+    style="@style/GameParams"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBaseline_toBaselineOf="@id/code_length_label"
+    tools:text="3"/>
 
   <SeekBar
     android:id="@+id/code_length"
@@ -17,12 +36,56 @@
     android:progress="@integer/code_length_default"
     android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
     android:layout_marginTop="@dimen/half_dynamic_spacing"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/code_length_label"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
-  <!-- TODO Add seek bar & text widgets for pool size. -->
+  <TextView
+    android:id="@+id/pool_size_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/full_dynamic_spacing"
+    android:layout_marginStart="@dimen/full_dynamic_spacing"
+    android:text="@string/pool_size_label"
+    style="@style/GameParams"
+    app:layout_constraintTop_toBottomOf="@id/code_length"
+    app:layout_constraintStart_toStartOf="parent"/>
 
-  <!-- TODO Add recyclerview for complete games. -->
+  <TextView
+    android:id="@+id/pool_size_value"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/full_dynamic_spacing"
+    style="@style/GameParams"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBaseline_toBaselineOf="@id/pool_size_label"
+    tools:text="5"/>
+
+  <SeekBar
+    android:id="@+id/pool_size"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:min="@integer/pool_size_min"
+    android:max="@integer/pool_size_max"
+    android:progress="@integer/pool_size_default"
+    android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
+    android:layout_marginTop="@dimen/half_dynamic_spacing"
+    app:layout_constraintTop_toBottomOf="@id/pool_size_label"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+  <!-- TODO Add header for recyclerview.-->
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/complete_games"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/full_dynamic_spacing"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@id/pool_size"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
