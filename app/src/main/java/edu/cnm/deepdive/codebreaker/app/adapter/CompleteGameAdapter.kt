@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import dagger.hilt.android.qualifiers.ActivityContext
 import edu.cnm.deepdive.codebreaker.app.R
 import edu.cnm.deepdive.codebreaker.app.databinding.ItemCompleteGameBinding
 import edu.cnm.deepdive.codebreaker.app.model.entity.CompleteGame
@@ -17,7 +18,7 @@ import kotlin.math.roundToInt
 private const val MILLISECONDS_PER_SECOND = 1000.0
 private const val MINUTES_PER_SECOND = 60
 
-class CompleteGameAdapter @Inject constructor(context: Context) :
+class CompleteGameAdapter @Inject constructor(@ActivityContext context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dateFormatter: DateTimeFormatter =
@@ -36,7 +37,11 @@ class CompleteGameAdapter @Inject constructor(context: Context) :
     override fun getItemCount(): Int =
         games.size
 
-    // TODO: Add functions to clear & populate the list of games.
+    fun clear() =
+        games.clear()
+
+    fun addAll(games: Collection<CompleteGame>): Boolean =
+        this.games.addAll(games)
 
     private inner class Holder(private val binding: ItemCompleteGameBinding) :
         RecyclerView.ViewHolder(binding.root) {

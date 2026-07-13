@@ -70,8 +70,16 @@ public class GameViewModel extends ViewModel {
     return error;
   }
 
+  public LiveData<Integer> getCodeLength() {
+    return codeLength;
+  }
+
   public void setCodeLength(int codeLength) {
     this.codeLength.setValue(codeLength);
+  }
+
+  public LiveData<Integer> getPoolSize() {
+    return poolSize;
   }
 
   public void setPoolSize(int poolSize) {
@@ -130,11 +138,13 @@ public class GameViewModel extends ViewModel {
 
   private void setCodeLengthPreference(Integer codeLengthPreference) {
     this.codeLengthPreference = codeLengthPreference;
+    codeLength.postValue(codeLengthPreference);
     checkGameStarted();
   }
 
   private void setPoolSizePreference(Integer poolSizePreference) {
     this.poolSizePreference = poolSizePreference;
+    poolSize.postValue(poolSizePreference);
     checkGameStarted();
   }
 

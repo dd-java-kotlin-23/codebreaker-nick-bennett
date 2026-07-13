@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <TextView
     android:id="@+id/code_length_label"
@@ -33,7 +33,7 @@
     android:layout_height="wrap_content"
     android:min="@integer/code_length_min"
     android:max="@integer/code_length_max"
-    android:progress="@integer/code_length_default"
+    android:progress="0"
     android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
     android:layout_marginTop="@dimen/half_dynamic_spacing"
     app:layout_constraintTop_toBottomOf="@id/code_length_label"
@@ -67,23 +67,65 @@
     android:layout_height="wrap_content"
     android:min="@integer/pool_size_min"
     android:max="@integer/pool_size_max"
-    android:progress="@integer/pool_size_default"
+    android:progress="0"
     android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
     android:layout_marginTop="@dimen/half_dynamic_spacing"
     app:layout_constraintTop_toBottomOf="@id/pool_size_label"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
-  <!-- TODO Add header for recyclerview.-->
+  <LinearLayout
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/full_dynamic_spacing"
+    android:paddingTop="@dimen/half_dynamic_spacing"
+    android:paddingHorizontal="@dimen/half_dynamic_spacing"
+    android:background="@drawable/header_background"
+    app:layout_constraintTop_toBottomOf="@id/pool_size">
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="2"
+      android:layout_margin="@dimen/half_static_spacing"
+      android:text="@string/rank_header"
+      style="@style/ItemColumn.Header"/>
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="3"
+      android:layout_margin="@dimen/half_static_spacing"
+      android:text="@string/updated_header"
+      style="@style/ItemColumn.Header"/>
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="2"
+      android:layout_margin="@dimen/half_static_spacing"
+      android:text="@string/guess_count_header"
+      style="@style/ItemColumn.Header"/>
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="2"
+      android:layout_margin="@dimen/half_static_spacing"
+      android:text="@string/elapsed_time_header"
+      style="@style/ItemColumn.Header"/>
+
+  </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/complete_games"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:orientation="vertical"
-    android:layout_marginTop="@dimen/full_dynamic_spacing"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    app:layout_constraintTop_toBottomOf="@id/pool_size"
+    app:layout_constraintTop_toBottomOf="@id/header"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
